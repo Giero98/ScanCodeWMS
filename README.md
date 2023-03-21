@@ -4,7 +4,9 @@
 
 ## Table of Contents
 
-* [Overview](../README#Overview)
+* [Overview](../README.md#overview)
+* [Used technologies/libraries](../README.md#used-technologieslibraries)
+* [How to install](../README.md#how-to-install)
 
 ## Overview
 *short description*
@@ -12,8 +14,6 @@
 ## Used technologies/libraries
 
 Scanning codes using the library: [Code Scanner](https://github.com/yuriy-budiyev/code-scanner)
-
-## Screenshots
 
 ## How to install
 
