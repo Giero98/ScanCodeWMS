@@ -4,7 +4,7 @@
 
 ## Table of Contents
 
-* [Overview](../README/Overview)
+* [Overview](../README#Overview)
 
 ## Overview
 *short description*
