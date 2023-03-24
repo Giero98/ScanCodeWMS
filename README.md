@@ -12,7 +12,7 @@ Scanning codes using the library: [Code Scanner][code_scanner] which is licensed
 ## License
 
 ![alt text][gnu_gplv3_logo] \
-Scan Code WMS created as part of an internship for Inn-Tek ![alt text][inn_tek_logo]\
+Scan Code WMS created as part of an internship for Inn-Tek Sp. z o.o. ![alt text][inn_tek_logo]\
 [GNU GPLv3][gnu_gplv3_link] © Bartosz Gieras
 
 [code_scanner]: https://github.com/yuriy-budiyev/code-scanner
