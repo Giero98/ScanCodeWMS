@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     void openActivityScanning(String fName, int nScans, String iPrefix)
     {
-        Intent intent = new Intent(this, Scanning.class);
+        Intent intent = new Intent(this, CodeScanning.class);
         intent.putExtra("fileName", fName);
         intent.putExtra("numberOfScans", nScans);
         intent.putExtra("initialPrefix", iPrefix);

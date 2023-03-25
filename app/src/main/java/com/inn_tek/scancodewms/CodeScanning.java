@@ -23,7 +23,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,12 +40,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Scanning extends AppCompatActivity {
+public class CodeScanning extends AppCompatActivity {
     ArrayList<String> codeList = new ArrayList<>();
     CodeScanner codeScanner;
     String fileName, initialPrefix;
     int numberOfScans;
-    File appFolder;
+    File appFolder = Constants.appFolder;
     TextView currentNumberOfScans;
     int currentNumberOfScan = 0;
 
@@ -72,8 +71,6 @@ public class Scanning extends AppCompatActivity {
 
     void createTheAppFolder()
     {
-        appFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                Constants.folderName);
         if(!appFolder.exists()){
             appFolder.mkdir();
         }
@@ -198,7 +195,7 @@ public class Scanning extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.send_file) {
-
+            TransferOption.select(this);
             return true;
         }
         return super.onOptionsItemSelected(item);
