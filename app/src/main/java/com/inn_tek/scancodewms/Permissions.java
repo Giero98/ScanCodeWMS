@@ -20,25 +20,29 @@
 package com.inn_tek.scancodewms;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 public class Permissions {
-    @SuppressLint("StaticFieldLeak")
-    static Context context;
+    Context context;
 
     public Permissions (Context context)
     {
-        Permissions.context = context;
+        this.context = context;
         checkPermissions();
     }
 
-    public static void checkPermissions()
+    boolean checkAPI31() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
+    }
+
+    public void checkPermissions()
     {
         if(!checkPermissionCamera())
         {
@@ -52,29 +56,107 @@ public class Permissions {
         {
             getPermissionReadExternalStorage();
         }
+        else checkBtPermissions(context);
     }
 
-    static boolean checkPermissionCamera() {
+    public void checkBtPermissions(Context context)
+    {
+        if(checkSupportBt(context))
+        {
+            if (!checkAccessFineLocation()) {
+                getPermissionAccessFineLocation();
+            } else if (!checkBtConnect()) {
+                getPermissionBtConnect();
+            } else if (!checkBtScan()) {
+                getPermissionBtScan();
+            } else if (!checkBtAdvertise()) {
+                getPermissionBtAdvertise();
+            }
+        }
+    }
+
+    boolean checkSupportBt(Context context) {
+        if (Constants.bluetoothAdapter == null) {
+            Toast.makeText(context, "Device doesn't support Bluetooth", Toast.LENGTH_SHORT).show();
+            return false;
+        } else return true;
+    }
+
+    //region checkPermission
+
+    boolean checkPermissionCamera() {
         return ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
 
-    static boolean checkPermissionWriteExternalStorage() {
+    boolean checkPermissionWriteExternalStorage() {
         return ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
-    static boolean checkPermissionReadExternalStorage() {
+    boolean checkPermissionReadExternalStorage() {
         return ContextCompat.checkSelfPermission(context, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
-    static void getPermissionCamera() {
+    boolean checkAccessFineLocation() {
+        return ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    boolean checkBtConnect() {
+        if (checkAPI31()) {
+            return ContextCompat.checkSelfPermission(context, android.Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+        }
+        else return true;
+    }
+
+    boolean checkBtScan() {
+        if (checkAPI31()) {
+            return ContextCompat.checkSelfPermission(context, android.Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED;
+        }
+        else return true;
+    }
+
+    boolean checkBtAdvertise() {
+        if (checkAPI31()) {
+            return ContextCompat.checkSelfPermission(context, android.Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED;
+        }
+        else return true;
+    }
+
+    //endregion
+
+    //region getPermission
+
+    void getPermissionCamera() {
         ActivityCompat.requestPermissions((Activity) context, new String[]{android.Manifest.permission.CAMERA}, Constants.REQUEST_CAMERA);
     }
 
-    static void getPermissionWriteExternalStorage() {
+    void getPermissionWriteExternalStorage() {
         ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.REQUEST_WRITE_EXTERNAL_STORAGE);
     }
 
-    static void getPermissionReadExternalStorage() {
+    void getPermissionReadExternalStorage() {
         ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.REQUEST_READ_EXTERNAL_STORAGE);
     }
+
+    void getPermissionAccessFineLocation() {
+        ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.REQUEST_ACCESS_FINE_LOCATION);
+    }
+
+    void getPermissionBtConnect() {
+        if (checkAPI31()) {
+            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, Constants.REQUEST_BT_CONNECT);
+        }
+    }
+
+    void getPermissionBtScan() {
+        if (checkAPI31()) {
+            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.BLUETOOTH_SCAN}, Constants.REQUEST_BT_SCAN);
+        }
+    }
+    void getPermissionBtAdvertise() {
+        if (checkAPI31()) {
+            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.BLUETOOTH_ADVERTISE}, Constants.REQUEST_BT_ADVERTISE);
+        }
+    }
+
+    //endregion
 }

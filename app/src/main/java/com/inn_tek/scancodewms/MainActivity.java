@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText fileName, numberOfScans, initialPrefix;
     Button startScan;
+    Permissions permissions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         implementationOfLayoutVar();
         if(checkCameraHardwareAvailability())
         {
-            new Permissions(this);
+            permissions = new Permissions(this);
             startScan.setOnClickListener(v -> checkVariableAndOpenActivityScanning());
         }
     }
@@ -110,15 +111,17 @@ public class MainActivity extends AppCompatActivity {
 
     //Reactions to permission response received
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case Constants.REQUEST_CAMERA:
-            case Constants.REQUEST_WRITE_EXTERNAL_STORAGE:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Permissions.checkPermissions();
-                }
-                break;
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] perms, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, perms, grantResults);
+        if(Constants.requestBasicCodes.contains(requestCode)) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                permissions.checkPermissions();
+            }
+        }
+        else if(Constants.requestBtCodes.contains(requestCode)) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                permissions.checkBtPermissions(this);
+            }
         }
     }
 }

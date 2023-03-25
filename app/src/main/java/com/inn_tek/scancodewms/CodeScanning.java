@@ -19,9 +19,14 @@
 
 package com.inn_tek.scancodewms;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -195,9 +200,36 @@ public class CodeScanning extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.send_file) {
-            TransferOption.select(this);
+            checkBtIsOn();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    void checkBtIsOn() {
+        if (!Constants.bluetoothAdapter.isEnabled())
+            enableBt();
+        else startTransferOption();
+    }
+
+    void enableBt() {
+        Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        ActivityEnableBt.launch(intent);
+    }
+    final ActivityResultLauncher<Intent> ActivityEnableBt = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Toast.makeText(this, "Bluetooth started", Toast.LENGTH_SHORT).show();
+                    startTransferOption();
+                }
+                else
+                    Toast.makeText(this, "Bluetooth not enabled", Toast.LENGTH_SHORT).show();
+            });
+
+    void startTransferOption()
+    {
+        TransferOption transferOption = new TransferOption();
+        transferOption.select(this);
     }
 }

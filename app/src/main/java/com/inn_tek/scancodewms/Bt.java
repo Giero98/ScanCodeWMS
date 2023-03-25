@@ -24,35 +24,38 @@ import android.content.Context;
 import android.net.Uri;
 import android.widget.Toast;
 
-import androidx.core.content.FileProvider;
-
 import java.io.File;
 import java.util.ArrayList;
 
-public class Bt extends Thread {
+public class Bt {
     Context context;
 
     public Bt(Context context){
         this.context = context;
+        //first connect or not
+        startSendingFiles();
+    }
 
+    void startSendingFiles()
+    {
         File[] files = Constants.appFolder.listFiles();
 
+        assert files != null;
         if(folderIsEmpty(files))
         {
             ((Activity) context).runOnUiThread(() ->
-                Toast.makeText(context, "There are no files to send", Toast.LENGTH_SHORT).show());
+                    Toast.makeText(context, "There are no files to send", Toast.LENGTH_SHORT).show());
         } else {
-            assert files != null;
-            startSendFiles(files);
+            sendFiles(files);
         }
     }
 
     boolean folderIsEmpty(File[] files)
     {
-        return files == null || files.length == 0;
+        return files.length == 0;
     }
 
-    void startSendFiles(File[] files)
+    void sendFiles(File[] files)
     {
         ArrayList<Uri> filesList = new ArrayList<>();
         for (File file : files) {
@@ -61,6 +64,9 @@ public class Bt extends Thread {
                 filesList.add(uri);
             }
         }
+
+        ((Activity) context).runOnUiThread(() ->
+                Toast.makeText(context, "Sending will start here", Toast.LENGTH_SHORT).show());
 
     }
 }

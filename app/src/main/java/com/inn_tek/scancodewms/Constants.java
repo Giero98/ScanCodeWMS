@@ -19,17 +19,29 @@
 
 package com.inn_tek.scancodewms;
 
+import android.bluetooth.BluetoothAdapter;
 import android.os.Environment;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 public interface Constants {
     int     REQUEST_CAMERA = 1,
             REQUEST_WRITE_EXTERNAL_STORAGE = 2,
-            REQUEST_READ_EXTERNAL_STORAGE = 3;
+            REQUEST_READ_EXTERNAL_STORAGE = 3,
+            REQUEST_BT_CONNECT = 4,
+            REQUEST_BT_SCAN = 5,
+            REQUEST_BT_ADVERTISE = 6,
+            REQUEST_ACCESS_FINE_LOCATION = 7;
 
     String  folderName = "ScanCodeWMS",
             titleView = "Choose a sending method";
 
+    List<Integer>   requestBasicCodes = Arrays.asList(REQUEST_CAMERA, REQUEST_WRITE_EXTERNAL_STORAGE, REQUEST_READ_EXTERNAL_STORAGE),
+                    requestBtCodes = Arrays.asList(REQUEST_BT_CONNECT, REQUEST_BT_SCAN, REQUEST_BT_ADVERTISE, REQUEST_ACCESS_FINE_LOCATION);
+
     File appFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), folderName);
+
+    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 }

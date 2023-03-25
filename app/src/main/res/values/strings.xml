@@ -18,7 +18,7 @@
     -->
 
 <resources>
-    <string name="app_name">ScanCodeWMS</string>
+    <string name="app_name">Scan Code WMS</string>
     <string name="text_about_app">Here is the text about the application</string>
     <string name="edit_text_file_name">File Name</string>
     <string name="edit_text_number_of_scans">Number of scans</string>

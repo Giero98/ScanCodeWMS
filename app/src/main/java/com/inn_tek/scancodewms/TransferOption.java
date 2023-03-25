@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 public class TransferOption {
 
-    public static void select(Context context)
+    public void select(Context context)
     {
         LinearLayout layout = settingLayout(context);
 
@@ -46,7 +46,7 @@ public class TransferOption {
         showAlertDialog(selectTechnology);
     }
 
-    static LinearLayout settingLayout(Context context)
+    LinearLayout settingLayout(Context context)
     {
         LinearLayout layout = new LinearLayout(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -58,7 +58,7 @@ public class TransferOption {
         return layout;
     }
 
-    static ImageView addingImageToLayout(Context context, LinearLayout layout, int imageReference)
+    ImageView addingImageToLayout(Context context, LinearLayout layout, int imageReference)
     {
         ImageView image = new ImageView(context);
         image.setImageResource(imageReference);
@@ -67,7 +67,7 @@ public class TransferOption {
         return image;
     }
 
-    static AlertDialog.Builder settingAlertDialog(Context context, LinearLayout layout)
+    AlertDialog.Builder settingAlertDialog(Context context, LinearLayout layout)
     {
         AlertDialog.Builder selectTechnology = new AlertDialog.Builder(context);
         selectTechnology.setView(layout);
@@ -76,7 +76,7 @@ public class TransferOption {
         return selectTechnology;
     }
 
-    static void showAlertDialog(AlertDialog.Builder selectTechnology)
+    void showAlertDialog(AlertDialog.Builder selectTechnology)
     {
         AlertDialog dialog = selectTechnology.create();
         dialog.show();
