@@ -5,8 +5,7 @@
 ## Overview
 *short description*
 
-If you want to send files via Bluetooth to a device with the Windows operating system,
-you need to perform step 3 from the given list of steps on the given device:
+If you want to send files via Bluetooth to a Windows device, you have to do:
 - In Bluetooth & other devices settings, select Send or receive files via Bluetooth > Receive files.
 
 More information here: [Receive files over Bluetooth for Windows][receiving_files_via_windows]
