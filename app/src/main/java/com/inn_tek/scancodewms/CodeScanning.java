@@ -33,6 +33,7 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -138,33 +139,55 @@ public class CodeScanning extends AppCompatActivity {
     void saveCodesToFile()
     {
         File file = new File(appFolder,setFileName() + ".csv");
+        proceduresForSavingCodesToFile(file);
+        clearCodeList();
+        Toast.makeText(this, "Data saved to a file", Toast.LENGTH_SHORT).show();
+    }
+
+    String setFileName()
+    {
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.dateFormatToFileName);
+        Date currentDate = new Date();
+        String currentTime = dateFormat.format(currentDate);
+        return fileName + "_" + currentTime;
+    }
+
+    void proceduresForSavingCodesToFile(File file)
+    {
         try {
             FileOutputStream fos = new FileOutputStream(file);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
+            saveCodeListToFile(osw);
+            closeStreams(fos, osw);
+        } catch (FileNotFoundException e) {
+            Log.e("Open File","Error opening file to save data: " + e.getMessage());
+            Toast.makeText(this, "Error opening file to save data", Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    void saveCodeListToFile(OutputStreamWriter osw)
+    {
+        try {
             for (String data : codeList) {
                 osw.write(data);
                 osw.write("\n");
             }
-
-            osw.close();
-            fos.close();
-
-            clearCodeList();
-            Toast.makeText(this, "Data saved to a file", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("Write Data","Error saved data to a file: " + e.getMessage());
             Toast.makeText(this, "Error saved data to a file", Toast.LENGTH_SHORT).show();
         }
     }
 
-    String setFileName()
+    void closeStreams(FileOutputStream fos, OutputStreamWriter osw)
     {
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        Date currentDate = new Date();
-        String currentTime = dateFormat.format(currentDate);
-        return fileName + "_" + currentTime;
+        try {
+            osw.close();
+            fos.close();
+        } catch (IOException e) {
+            Log.e("Close streams","Error close streams to file: " + e.getMessage());
+            Toast.makeText(this, "Error close streams to file", Toast.LENGTH_SHORT).show();
+        }
     }
 
     void clearCodeList()

@@ -85,18 +85,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    boolean checkIfEmpty(EditText var)
-    {
+    boolean checkIfEmpty(EditText var) {
         return !TextUtils.isEmpty(var.getText());
     }
 
-    String getStringVar(EditText var)
-    {
+    String getStringVar(EditText var) {
         return String.valueOf(var.getText());
     }
 
-    int getIntegerVar(EditText var)
-    {
+    int getIntegerVar(EditText var) {
         return Integer.parseInt(String.valueOf(var.getText()));
     }
 

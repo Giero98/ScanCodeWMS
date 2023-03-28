@@ -36,7 +36,8 @@ public interface Constants {
             REQUEST_ACCESS_FINE_LOCATION = 7;
 
     String  folderName = "ScanCodeWMS",
-            titleView = "Choose a sending method";
+            titleView = "Choose a sending method",
+            dateFormatToFileName = "yyyyMMddHHmmss";
 
     List<Integer>   requestBasicCodes = Arrays.asList(REQUEST_CAMERA, REQUEST_WRITE_EXTERNAL_STORAGE, REQUEST_READ_EXTERNAL_STORAGE),
                     requestBtCodes = Arrays.asList(REQUEST_BT_CONNECT, REQUEST_BT_SCAN, REQUEST_BT_ADVERTISE, REQUEST_ACCESS_FINE_LOCATION);

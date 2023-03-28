@@ -1,4 +1,4 @@
-# ScanCodeWMS
+# Scan Code WMS
 
 *pictures*
 
