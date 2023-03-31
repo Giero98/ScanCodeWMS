@@ -37,7 +37,8 @@ public interface Constants {
 
     String  folderName = "ScanCodeWMS",
             titleView = "Choose a sending method",
-            dateFormatToFileName = "yyyyMMddHHmmss";
+            dateFormatToFileName = "yyyyMMddHHmmss",
+            requestToDeleteFiles = "Do you want to delete the existing files in the application folder before scanning?";
 
     List<Integer>   requestBasicCodes = Arrays.asList(REQUEST_CAMERA, REQUEST_WRITE_EXTERNAL_STORAGE, REQUEST_READ_EXTERNAL_STORAGE),
                     requestBtCodes = Arrays.asList(REQUEST_BT_CONNECT, REQUEST_BT_SCAN, REQUEST_BT_ADVERTISE, REQUEST_ACCESS_FINE_LOCATION);

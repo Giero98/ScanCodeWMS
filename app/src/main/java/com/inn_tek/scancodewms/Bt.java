@@ -38,7 +38,7 @@ import java.util.ArrayList;
 public class Bt extends AppCompatActivity {
     Context context;
 
-    public Bt(Context context){
+    public Bt(Context context) {
         this.context = context;
         checkBtIsOn();
     }
@@ -55,14 +55,13 @@ public class Bt extends AppCompatActivity {
         launchIntentToEnableBT();
     }
 
-    void startListenForBtStateChange()
-    {
+    void startListenForBtStateChange() {
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
         context.getApplicationContext().registerReceiver(bluetoothStateReceiver, filter);
     }
+
     @SuppressLint("MissingPermission")
-    void launchIntentToEnableBT()
-    {
+    void launchIntentToEnableBT() {
         Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.getApplicationContext().startActivity(intent);
@@ -90,33 +89,29 @@ public class Bt extends AppCompatActivity {
         }
     };
 
-    void startSendingFiles()
-    {
+    void startSendingFiles() {
         File[] files = Constants.appFolder.listFiles();
 
         assert files != null;
-        if(folderIsEmpty(files))
-        {
+        if(folderIsEmpty(files)) {
             ((Activity) context).runOnUiThread(() ->
                     Toast.makeText(context, "There are no file to send", Toast.LENGTH_SHORT).show());
-        } else {
+        }
+        else {
             prepareAndSendFiles(files);
         }
     }
 
-    boolean folderIsEmpty(File[] files)
-    {
+    boolean folderIsEmpty(File[] files) {
         return files.length == 0;
     }
 
-    void prepareAndSendFiles(File[] files)
-    {
+    void prepareAndSendFiles(File[] files) {
         ArrayList<Uri> filesList = prepareFilesListToSend (files);
         sendFilesViaBt(filesList);
     }
 
-    ArrayList<Uri>  prepareFilesListToSend (File[] files)
-    {
+    ArrayList<Uri>  prepareFilesListToSend (File[] files) {
         ArrayList<Uri> filesList = new ArrayList<>();
         for (File file : files) {
             if (file.isFile()) {
@@ -127,8 +122,7 @@ public class Bt extends AppCompatActivity {
         return filesList;
     }
 
-    void sendFilesViaBt(ArrayList<Uri> filesList)
-    {
+    void sendFilesViaBt(ArrayList<Uri> filesList) {
         Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         intent.setType("*/*");
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, filesList);

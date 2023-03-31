@@ -42,15 +42,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         implementationOfLayoutVar();
-        if(checkCameraHardwareAvailability())
-        {
+        if(checkCameraHardwareAvailability()) {
             permissions = new Permissions(this);
             startScan.setOnClickListener(v -> checkVariableAndOpenActivityScanning());
         }
     }
 
-    void implementationOfLayoutVar()
-    {
+    void implementationOfLayoutVar() {
         fileName = findViewById(R.id.fileName);
         numberOfScans = findViewById(R.id.numberOfScans);
         initialPrefix = findViewById(R.id.initialPrefix);
@@ -60,28 +58,27 @@ public class MainActivity extends AppCompatActivity {
     boolean checkCameraHardwareAvailability() {
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)){
             return true;
-        } else {
-            Toast.makeText(getApplicationContext(), "No camera on this device", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "No camera on this device", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
 
-    void checkVariableAndOpenActivityScanning()
-    {
-        if(checkIfEmpty(fileName))
-        {
+    void checkVariableAndOpenActivityScanning() {
+        if(checkIfEmpty(fileName)) {
             String fName = getStringVar(fileName);
-            if (checkIfEmpty(numberOfScans))
-            {
+            if (checkIfEmpty(numberOfScans)) {
                 int nScans = getIntegerVar(numberOfScans);
                 String iPrefix = getStringVar(initialPrefix);
                 openActivityScanning(fName, nScans, iPrefix);
-            } else {
-                Toast.makeText(getApplicationContext(), "Enter the number of scans", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(getApplicationContext(), "Enter the name of the file", Toast.LENGTH_SHORT).show();
-
+            else {
+                Toast.makeText(this, "Enter the number of scans", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            Toast.makeText(this, "Enter the name of the file", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -97,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
         return Integer.parseInt(String.valueOf(var.getText()));
     }
 
-    void openActivityScanning(String fName, int nScans, String iPrefix)
-    {
+    void openActivityScanning(String fName, int nScans, String iPrefix) {
         Intent intent = new Intent(this, CodeScanning.class);
         intent.putExtra("fileName", fName);
         intent.putExtra("numberOfScans", nScans);

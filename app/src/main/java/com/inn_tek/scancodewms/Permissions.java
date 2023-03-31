@@ -32,8 +32,7 @@ import androidx.core.content.ContextCompat;
 public class Permissions {
     Context context;
 
-    public Permissions (Context context)
-    {
+    public Permissions (Context context) {
         this.context = context;
         checkPermissions();
     }
@@ -42,27 +41,21 @@ public class Permissions {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
     }
 
-    public void checkPermissions()
-    {
-        if(!checkPermissionCamera())
-        {
+    public void checkPermissions() {
+        if(!checkPermissionCamera()) {
             getPermissionCamera();
         }
-        else if(!checkPermissionWriteExternalStorage())
-        {
+        else if(!checkPermissionWriteExternalStorage()) {
             getPermissionWriteExternalStorage();
         }
-        else if(!checkPermissionReadExternalStorage())
-        {
+        else if(!checkPermissionReadExternalStorage()) {
             getPermissionReadExternalStorage();
         }
         else checkBtPermissions(context);
     }
 
-    public void checkBtPermissions(Context context)
-    {
-        if(checkSupportBt(context))
-        {
+    public void checkBtPermissions(Context context) {
+        if(checkSupportBt(context)) {
             if (!checkAccessFineLocation()) {
                 getPermissionAccessFineLocation();
             } else if (!checkBtConnect()) {

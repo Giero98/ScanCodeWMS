@@ -27,8 +27,7 @@ import android.widget.Toast;
 
 public class TransferOption {
 
-    public void select(Context context)
-    {
+    public void select(Context context) {
         LinearLayout layout = settingLayout(context);
 
         ImageView imageBluetooth = addingImageToLayout(context, layout, R.drawable.ic_bluetooth);
@@ -46,8 +45,7 @@ public class TransferOption {
         showAlertDialog(selectTechnology);
     }
 
-    LinearLayout settingLayout(Context context)
-    {
+    LinearLayout settingLayout(Context context) {
         LinearLayout layout = new LinearLayout(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, // Width
@@ -58,8 +56,7 @@ public class TransferOption {
         return layout;
     }
 
-    ImageView addingImageToLayout(Context context, LinearLayout layout, int imageReference)
-    {
+    ImageView addingImageToLayout(Context context, LinearLayout layout, int imageReference) {
         ImageView image = new ImageView(context);
         image.setImageResource(imageReference);
         layout.addView(image);
@@ -67,8 +64,7 @@ public class TransferOption {
         return image;
     }
 
-    AlertDialog.Builder settingAlertDialog(Context context, LinearLayout layout)
-    {
+    AlertDialog.Builder settingAlertDialog(Context context, LinearLayout layout) {
         AlertDialog.Builder selectTechnology = new AlertDialog.Builder(context);
         selectTechnology.setView(layout);
         selectTechnology.setTitle(Constants.titleView);
@@ -76,8 +72,7 @@ public class TransferOption {
         return selectTechnology;
     }
 
-    void showAlertDialog(AlertDialog.Builder selectTechnology)
-    {
+    void showAlertDialog(AlertDialog.Builder selectTechnology) {
         AlertDialog dialog = selectTechnology.create();
         dialog.show();
     }

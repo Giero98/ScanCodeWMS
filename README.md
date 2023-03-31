@@ -5,6 +5,17 @@
 ## Overview
 *short description*
 
+### Features
+
+- The app creates its own folder in your downloaded directory.
+- Determining the name of the created file with codes.
+- Determination after how many scans of codes are to be saved to a new file.
+- Ability to enter the initial code prefix, where only codes with this prefix will be scanned.
+- Ability to remove files from a folder before scanning.
+- Use auto focus and flashlight while scanning.
+- Display of the number of scanned codes so far.
+- Sending files to another device via Bluetooth.
+
 ### Receiving files via Windows
 
 If you want to send files via Bluetooth to a Windows device, you have to do:

@@ -45,10 +45,9 @@ public class CodeScanning extends AppCompatActivity {
     ArrayList<String> codeList = new ArrayList<>();
     CodeScanner codeScanner;
     String fileName, initialPrefix;
-    int numberOfScans;
     File appFolder = Constants.appFolder;
     TextView currentNumberOfScans;
-    int currentNumberOfScan = 0;
+    int numberOfScans, currentNumberOfScan = 0;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -57,6 +56,7 @@ public class CodeScanning extends AppCompatActivity {
         setContentView(R.layout.activity_scanning);
 
         createTheAppFolder();
+        runQueryForFileDeletions();
         getVarFromMainActivity();
 
         currentNumberOfScans = findViewById(R.id.currentNumberOfScans);
@@ -70,35 +70,36 @@ public class CodeScanning extends AppCompatActivity {
         }));
     }
 
-    void createTheAppFolder()
-    {
+    void createTheAppFolder() {
         if(!appFolder.exists()){
             appFolder.mkdir();
         }
     }
 
-    void getVarFromMainActivity()
-    {
+    void runQueryForFileDeletions() {
+        DeleteFiles deleteFiles = new DeleteFiles(this);
+        deleteFiles.requestToDeleteFilesIfExist();
+    }
+
+    void getVarFromMainActivity() {
         Bundle main = getIntent().getExtras();
         fileName = main.getString("fileName");
         numberOfScans = main.getInt("numberOfScans");
         initialPrefix = main.getString("initialPrefix");
     }
 
-    void checkCodeWithInitialPrefix(String code)
-    {
-        if(checkPrefixTheScannedCode(code))
-        {
+    void checkCodeWithInitialPrefix(String code) {
+        if(checkPrefixTheScannedCode(code)) {
             addCodeToTheListAndIncreasingNumberOfScan(code);
             Toast.makeText(this, "Code scanned", Toast.LENGTH_SHORT).show();
             checkIfEnoughCodesScanned();
-        } else {
+        }
+        else {
             Toast.makeText(this, "Not valid prefix", Toast.LENGTH_SHORT).show();
         }
     }
 
-    boolean checkPrefixTheScannedCode(String code)
-    {
+    boolean checkPrefixTheScannedCode(String code) {
         if(isInitialPrefixEmpty()) return true;
         if(code.length() >= initialPrefix.length()) {
             for (int i = 0; i < initialPrefix.length(); i++) {
@@ -110,42 +111,35 @@ public class CodeScanning extends AppCompatActivity {
         } else return false;
     }
 
-    boolean isInitialPrefixEmpty()
-    {
+    boolean isInitialPrefixEmpty() {
         return initialPrefix.isEmpty();
     }
 
-    void addCodeToTheListAndIncreasingNumberOfScan(String code)
-    {
+    void addCodeToTheListAndIncreasingNumberOfScan(String code) {
         codeList.add(code);
         currentNumberOfScans.setText(String.valueOf(++currentNumberOfScan));
     }
 
-    void checkIfEnoughCodesScanned()
-    {
-        if(codeList.size() == numberOfScans)
-        {
+    void checkIfEnoughCodesScanned() {
+        if(codeList.size() == numberOfScans) {
             saveCodesToFile();
             setNumberOfScanToDefaultValue();
         }
     }
 
-    void setNumberOfScanToDefaultValue()
-    {
+    void setNumberOfScanToDefaultValue() {
         currentNumberOfScan = 0;
         currentNumberOfScans.setText(String.valueOf(currentNumberOfScan));
     }
 
-    void saveCodesToFile()
-    {
+    void saveCodesToFile() {
         File file = new File(appFolder,setFileName() + ".csv");
         proceduresForSavingCodesToFile(file);
         clearCodeList();
         Toast.makeText(this, "Data saved to a file", Toast.LENGTH_SHORT).show();
     }
 
-    String setFileName()
-    {
+    String setFileName() {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.dateFormatToFileName);
         Date currentDate = new Date();
@@ -153,45 +147,44 @@ public class CodeScanning extends AppCompatActivity {
         return fileName + "_" + currentTime;
     }
 
-    void proceduresForSavingCodesToFile(File file)
-    {
+    void proceduresForSavingCodesToFile(File file) {
         try {
             FileOutputStream fos = new FileOutputStream(file);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             saveCodeListToFile(osw);
             closeStreams(fos, osw);
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             Log.e("Open File","Error opening file to save data: " + e.getMessage());
             Toast.makeText(this, "Error opening file to save data", Toast.LENGTH_SHORT).show();
         }
     }
 
-    void saveCodeListToFile(OutputStreamWriter osw)
-    {
+    void saveCodeListToFile(OutputStreamWriter osw) {
         try {
             for (String data : codeList) {
                 osw.write(data);
                 osw.write("\n");
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             Log.e("Write Data","Error saved data to a file: " + e.getMessage());
             Toast.makeText(this, "Error saved data to a file", Toast.LENGTH_SHORT).show();
         }
     }
 
-    void closeStreams(FileOutputStream fos, OutputStreamWriter osw)
-    {
+    void closeStreams(FileOutputStream fos, OutputStreamWriter osw) {
         try {
             osw.close();
             fos.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             Log.e("Close streams","Error close streams to file: " + e.getMessage());
             Toast.makeText(this, "Error close streams to file", Toast.LENGTH_SHORT).show();
         }
     }
 
-    void clearCodeList()
-    {
+    void clearCodeList() {
         if (!codeList.isEmpty()) {
             codeList.clear();
         }
@@ -214,6 +207,7 @@ public class CodeScanning extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -224,8 +218,7 @@ public class CodeScanning extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    void startTransferOption()
-    {
+    void startTransferOption() {
         TransferOption transferOption = new TransferOption();
         transferOption.select(this);
     }
