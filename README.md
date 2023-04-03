@@ -2,6 +2,8 @@
 
 *pictures*
 
+The ic_inn_tek_logo.png is the logo of Inn-Tek Sp. z o.o.
+
 ## Overview
 *short description*
 
@@ -26,6 +28,7 @@ More information here: [Receive files over Bluetooth for Windows][receiving_file
 ## Used technologies/libraries
 
 Scanning codes using the library: [Code Scanner][code_scanner] which is licensed MIT License
+Simulating Android in a test environment using a library: [Robolectric][robolectric] which is license MIT License
 
 ## License
 
@@ -36,6 +39,7 @@ Scan Code WMS created as part of an internship for Inn-Tek Sp. z o.o.\
 
 [receiving_files_via_windows]: https://support.microsoft.com/en-us/windows/receive-files-over-bluetooth-d8da2667-e79b-744c-c135-f58af38fc3ba
 [code_scanner]: https://github.com/yuriy-budiyev/code-scanner
+[robolectric]: https://github.com/robolectric/robolectric
 [gnu_gplv3_logo]: https://www.gnu.org/graphics/gplv3-127x51.png "GNU GPLv3"
 [gnu_gplv3_link]: https://www.gnu.org/licenses/gpl-3.0.html
 [inn_tek_logo]: https://inn-tek.com/images/headers/raindrops.jpg

@@ -26,4 +26,5 @@
     <string name="button_start_scan">Start Scan</string>
     <string name="item_send_file">Send File</string>
     <string name="text_number_of_scan">Number of scans:</string>
+    <string name="default_number_of_scan">0</string>
 </resources>
