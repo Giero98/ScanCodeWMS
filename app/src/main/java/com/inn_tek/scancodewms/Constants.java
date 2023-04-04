@@ -35,7 +35,8 @@ public interface Constants {
             REQUEST_BT_ADVERTISE = 6,
             REQUEST_ACCESS_FINE_LOCATION = 7,
             REQUEST_ACCESS_WIFI_STATE = 8,
-            REQUEST_CHANGE_WIFI_STATE = 9;
+            REQUEST_CHANGE_WIFI_STATE = 9,
+            REQUEST_INTERNET = 10;
 
     String  folderName = "ScanCodeWMS",
             titleViewOnSelectTechnology = "Choose a sending method",
@@ -47,7 +48,7 @@ public interface Constants {
 
     List<Integer>   requestBasicCodes = Arrays.asList(REQUEST_CAMERA, REQUEST_WRITE_EXTERNAL_STORAGE, REQUEST_READ_EXTERNAL_STORAGE),
                     requestBtCodes = Arrays.asList(REQUEST_BT_CONNECT, REQUEST_BT_SCAN, REQUEST_BT_ADVERTISE, REQUEST_ACCESS_FINE_LOCATION),
-                    requestWifiCodes = Arrays.asList(REQUEST_ACCESS_WIFI_STATE, REQUEST_CHANGE_WIFI_STATE);
+                    requestWifiCodes = Arrays.asList(REQUEST_ACCESS_WIFI_STATE, REQUEST_CHANGE_WIFI_STATE, REQUEST_INTERNET);
 
     File appFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), folderName);
 

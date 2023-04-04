@@ -24,6 +24,8 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.inn_tek.scancodewms.wifi.WifiMethodsSelect;
+
 public class TransferOption {
 
     AlertDialog dialog;

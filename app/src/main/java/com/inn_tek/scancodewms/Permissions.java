@@ -79,6 +79,9 @@ public class Permissions {
         else if(!checkChangeWiFiState()) {
             getPermissionChangeWiFiState();
         }
+        else if(!checkInternet()) {
+            getPermissionInternet();
+        }
     }
 
     boolean checkSupportBt(Context context) {
@@ -135,6 +138,10 @@ public class Permissions {
         return ContextCompat.checkSelfPermission(context, android.Manifest.permission.CHANGE_WIFI_STATE) == PackageManager.PERMISSION_GRANTED;
     }
 
+    boolean checkInternet() {
+        return ContextCompat.checkSelfPermission(context, android.Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED;
+    }
+
     //endregion
 
     //region getPermission
@@ -178,6 +185,10 @@ public class Permissions {
 
     void getPermissionChangeWiFiState() {
         ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CHANGE_WIFI_STATE}, Constants.REQUEST_CHANGE_WIFI_STATE);
+    }
+
+    void getPermissionInternet() {
+        ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.INTERNET}, Constants.REQUEST_INTERNET);
     }
 
     //endregion

@@ -17,7 +17,7 @@
  * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.inn_tek.scancodewms;
+package com.inn_tek.scancodewms.wifi;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -27,6 +27,8 @@ import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.widget.Toast;
+
+import com.inn_tek.scancodewms.Constants;
 
 public class WifiMethodsSelect {
 
@@ -86,14 +88,24 @@ public class WifiMethodsSelect {
 
             switch (selectedProtocol) {
                 case Constants.ftp:
-                    Toast.makeText(context, "FTP", Toast.LENGTH_SHORT).show();
+                    startWifiSftp();
                     break;
                 case Constants.smb:
-                    Toast.makeText(context, "SMB", Toast.LENGTH_SHORT).show();
+                    startWifiSmb();
                     break;
             }
         });
 
         selectTransferMethodOnWifi.show();
+    }
+
+    void startWifiSftp() {
+        WifiSftp wifiSftp = new WifiSftp();
+
+    }
+
+    void startWifiSmb() {
+        //WifiSmb wifiSmb = new WifiSmb();
+
     }
 }
