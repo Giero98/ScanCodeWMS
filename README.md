@@ -27,10 +27,10 @@ More information here: [Receive files over Bluetooth for Windows][receiving_file
 
 ## Used technologies/libraries
 
-*Scanning codes using the library: [Code Scanner][code_scanner] which is licensed MIT License\
-*Simulating Android in a test environment using a library: [Robolectric][robolectric] which is license MIT License\
-*Connecting to an sshd server and using port forwarding, X11 forwarding, file transfer with the [JSch][jsch] library by [JCraft][jcraft] under the [BSD style license][bsd]\
-*SMB2/SMB3 client library [SMBJ][smbj] without a specific license
+- Scanning codes using the library: [Code Scanner][code_scanner] which is licensed MIT License
+- Simulating Android in a test environment using a library: [Robolectric][robolectric] which is license MIT License
+- Connecting to an sshd server and using port forwarding, X11 forwarding, file transfer with the [JSch][jsch] library by [JCraft][jcraft] under the [BSD style license][bsd]
+- SMB2/SMB3 client library [SMBJ][smbj] without a specific license
 
 ## License
 
