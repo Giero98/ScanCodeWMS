@@ -26,7 +26,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
-import android.widget.Toast;
 
 import com.inn_tek.scancodewms.Constants;
 
@@ -34,6 +33,7 @@ public class WifiMethodsSelect {
 
     Context context;
     WifiManager wifiManager;
+    AlertDialog dialog;
 
     public WifiMethodsSelect(Context context) {
         this.context = context;
@@ -77,7 +77,7 @@ public class WifiMethodsSelect {
     };
 
     void selectMethod() {
-        final CharSequence[] PROTOCOLS = {Constants.ftp, Constants.smb};
+        final CharSequence[] PROTOCOLS = {Constants.sftp, Constants.smb};
 
         AlertDialog.Builder selectTransferMethodOnWifi = new AlertDialog.Builder(context);
         selectTransferMethodOnWifi.setTitle(Constants.titleViewOnTransferMethodOnWifi);
@@ -87,7 +87,7 @@ public class WifiMethodsSelect {
             String selectedProtocol = PROTOCOLS[which].toString();
 
             switch (selectedProtocol) {
-                case Constants.ftp:
+                case Constants.sftp:
                     startWifiSftp();
                     break;
                 case Constants.smb:
@@ -96,16 +96,23 @@ public class WifiMethodsSelect {
             }
         });
 
-        selectTransferMethodOnWifi.show();
+        showAlertDialog(selectTransferMethodOnWifi);
     }
 
     void startWifiSftp() {
-        WifiSftp wifiSftp = new WifiSftp();
-
+        dialog.cancel();
+        SftpSettingsDialog sftpSettingsDialog = new SftpSettingsDialog(context);
+        sftpSettingsDialog.checkIfSftpCredentialsSaved();
     }
 
     void startWifiSmb() {
+        dialog.cancel();
         //WifiSmb wifiSmb = new WifiSmb();
 
+    }
+
+    void showAlertDialog(AlertDialog.Builder alertDialog) {
+        dialog = alertDialog.create();
+        dialog.show();
     }
 }

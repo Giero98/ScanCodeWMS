@@ -19,6 +19,8 @@
 
 package com.inn_tek.scancodewms.wifi;
 
+import android.content.Context;
+
 import com.inn_tek.scancodewms.Constants;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
@@ -30,8 +32,10 @@ import java.io.File;
 
 public class WifiSftp {
 
-    public WifiSftp() {
+    Context context;
 
+    public WifiSftp(Context context) {
+        this.context = context;
     }
 
     public void openConnection() {

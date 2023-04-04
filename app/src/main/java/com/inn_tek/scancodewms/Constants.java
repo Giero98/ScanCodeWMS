@@ -38,14 +38,27 @@ public interface Constants {
             REQUEST_CHANGE_WIFI_STATE = 9,
             REQUEST_INTERNET = 10;
 
+    String  PREFS_NAME = "SFTP_PREFS",
+            HOST_KEY = "Host",
+            USERNAME_KEY = "Username",
+            PASSWORD_KEY = "Password",
+            PRIVATE_KEY_PATH_KEY = "Private key path",
+            PASSPHRASE_KEY = "Passphrase";
+
     String  folderName = "ScanCodeWMS",
             titleViewOnSelectTechnology = "Choose a sending method",
             titleViewOnTransferMethodOnWifi = "Select a protocol",
-            ftp = "FTP",
+            titleViewSftpCredentials = "SFTP Credentials",
+            titleViewChoose = "Choose",
+            showSftpSettings = "Show SFTP Credentials",
+            editSftpSettings = "Change SFTP Credentials",
+            useSftpCredentials = "Use SFTP Credentials",
+            sftp = "SFTP",
             smb = "SMB",
             dateFormatToFileName = "yyyyMMddHHmmss",
             requestToDeleteFiles = "Do you want to delete the existing files in the application folder before scanning?";
 
+    String[] keys = {HOST_KEY, USERNAME_KEY, PASSWORD_KEY, PRIVATE_KEY_PATH_KEY, PASSPHRASE_KEY};
     List<Integer>   requestBasicCodes = Arrays.asList(REQUEST_CAMERA, REQUEST_WRITE_EXTERNAL_STORAGE, REQUEST_READ_EXTERNAL_STORAGE),
                     requestBtCodes = Arrays.asList(REQUEST_BT_CONNECT, REQUEST_BT_SCAN, REQUEST_BT_ADVERTISE, REQUEST_ACCESS_FINE_LOCATION),
                     requestWifiCodes = Arrays.asList(REQUEST_ACCESS_WIFI_STATE, REQUEST_CHANGE_WIFI_STATE, REQUEST_INTERNET);
