@@ -58,13 +58,26 @@ public class Permissions {
         if(checkSupportBt(context)) {
             if (!checkAccessFineLocation()) {
                 getPermissionAccessFineLocation();
-            } else if (!checkBtConnect()) {
+            }
+            else if (!checkBtConnect()) {
                 getPermissionBtConnect();
-            } else if (!checkBtScan()) {
+            }
+            else if (!checkBtScan()) {
                 getPermissionBtScan();
-            } else if (!checkBtAdvertise()) {
+            }
+            else if (!checkBtAdvertise()) {
                 getPermissionBtAdvertise();
             }
+            else checkWifiPermissions();
+        }
+    }
+
+    public void checkWifiPermissions() {
+        if(!checkAccessWiFiState()) {
+            getPermissionAccessWiFiState();
+        }
+        else if(!checkChangeWiFiState()) {
+            getPermissionChangeWiFiState();
         }
     }
 
@@ -114,6 +127,14 @@ public class Permissions {
         else return true;
     }
 
+    boolean checkAccessWiFiState() {
+        return ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_WIFI_STATE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    boolean checkChangeWiFiState() {
+        return ContextCompat.checkSelfPermission(context, android.Manifest.permission.CHANGE_WIFI_STATE) == PackageManager.PERMISSION_GRANTED;
+    }
+
     //endregion
 
     //region getPermission
@@ -149,6 +170,14 @@ public class Permissions {
         if (checkAPI31()) {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.BLUETOOTH_ADVERTISE}, Constants.REQUEST_BT_ADVERTISE);
         }
+    }
+
+    void getPermissionAccessWiFiState() {
+        ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_WIFI_STATE}, Constants.REQUEST_ACCESS_WIFI_STATE);
+    }
+
+    void getPermissionChangeWiFiState() {
+        ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CHANGE_WIFI_STATE}, Constants.REQUEST_CHANGE_WIFI_STATE);
     }
 
     //endregion

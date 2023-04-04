@@ -75,15 +75,9 @@ public class Bt extends AppCompatActivity {
             if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
                 final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
-                switch(state) {
-                    case BluetoothAdapter.STATE_ON:
-                        Toast.makeText(context, "BT On", Toast.LENGTH_SHORT).show();
-                        context.unregisterReceiver(this);
-                        startSendingFiles();
-                        break;
-                    case BluetoothAdapter.STATE_OFF:
-                        Toast.makeText(context, "BT Off", Toast.LENGTH_SHORT).show();
-                        break;
+                if (state == BluetoothAdapter.STATE_ON) {
+                    context.unregisterReceiver(this);
+                    startSendingFiles();
                 }
             }
         }

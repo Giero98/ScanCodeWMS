@@ -23,9 +23,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class TransferOption {
+
+    AlertDialog dialog;
 
     public void select(Context context) {
         LinearLayout layout = settingLayout(context);
@@ -39,8 +40,7 @@ public class TransferOption {
 
         imageBluetooth.setOnClickListener(v -> new Bt(context));
 
-        imageWifi.setOnClickListener(v ->
-                Toast.makeText(context, "Wi-Fi", Toast.LENGTH_SHORT).show());
+        imageWifi.setOnClickListener(v -> wifiMethodSelect(context));
 
         showAlertDialog(selectTechnology);
     }
@@ -65,15 +65,21 @@ public class TransferOption {
     }
 
     AlertDialog.Builder settingAlertDialog(Context context, LinearLayout layout) {
-        AlertDialog.Builder selectTechnology = new AlertDialog.Builder(context);
-        selectTechnology.setView(layout);
-        selectTechnology.setTitle(Constants.titleView);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setView(layout);
+        alertDialog.setTitle(Constants.titleViewOnSelectTechnology);
 
-        return selectTechnology;
+        return alertDialog;
     }
 
-    void showAlertDialog(AlertDialog.Builder selectTechnology) {
-        AlertDialog dialog = selectTechnology.create();
+    void wifiMethodSelect(Context context) {
+        dialog.cancel();
+        WifiMethodsSelect wifiMethodsSelect = new WifiMethodsSelect(context);
+        wifiMethodsSelect.checkWifiStatus();
+    }
+
+    void showAlertDialog(AlertDialog.Builder alertDialog) {
+        dialog = alertDialog.create();
         dialog.show();
     }
 }

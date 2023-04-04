@@ -29,6 +29,8 @@ More information here: [Receive files over Bluetooth for Windows][receiving_file
 
 Scanning codes using the library: [Code Scanner][code_scanner] which is licensed MIT License
 Simulating Android in a test environment using a library: [Robolectric][robolectric] which is license MIT License
+Connecting to an sshd server and using port forwarding, X11 forwarding, file transfer with the [JSch][jsch] library by [JCraft][jcraft] under the [BSD style license][bsd]
+SMB2/SMB3 client library [SMBJ][smbj] without a specific license
 
 ## License
 
@@ -40,6 +42,10 @@ Scan Code WMS created as part of an internship for Inn-Tek Sp. z o.o.\
 [receiving_files_via_windows]: https://support.microsoft.com/en-us/windows/receive-files-over-bluetooth-d8da2667-e79b-744c-c135-f58af38fc3ba
 [code_scanner]: https://github.com/yuriy-budiyev/code-scanner
 [robolectric]: https://github.com/robolectric/robolectric
+[jsch]: http://www.jcraft.com/jsch/
+[jcraft]: http://www.jcraft.com/c-info.html
+[bsd]: http://www.jcraft.com/jsch/LICENSE.txt
+[smbj]: https://github.com/hierynomus/smbj
 [gnu_gplv3_logo]: https://www.gnu.org/graphics/gplv3-127x51.png "GNU GPLv3"
 [gnu_gplv3_link]: https://www.gnu.org/licenses/gpl-3.0.html
 [inn_tek_logo]: https://inn-tek.com/images/headers/raindrops.jpg

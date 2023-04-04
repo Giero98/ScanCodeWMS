@@ -116,5 +116,10 @@ public class MainActivity extends AppCompatActivity {
                 permissions.checkBtPermissions(this);
             }
         }
+        else if(Constants.requestWifiCodes.contains(requestCode)) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                permissions.checkWifiPermissions();
+            }
+        }
     }
 }
