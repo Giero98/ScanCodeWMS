@@ -25,32 +25,34 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.inn_tek.scancodewms.Constants;
 
-public class SftpSettingsDialog {
+public class SmbSettingsDialog {
+
     SharedPreferences sharedPreferences;
     Context context;
 
-    public SftpSettingsDialog(Context context) {
+    public SmbSettingsDialog(Context context) {
         this.context = context;
-        sharedPreferences = context.getSharedPreferences(Constants.SFTP_PREFS_NAME, MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(Constants.SMB_PREFS_NAME, MODE_PRIVATE);
     }
 
-    public void checkIfSftpCredentialsSaved() {
+    public void checkIfSmbCredentialsSaved() {
         if (checkIfAllSharedPreferencesExist()) {
-            optionsForExistSftpCredentials();
+            optionsForExistSmbCredentials();
         }
         else {
-            createSftpCredentials(false);
+            createSmbCredentials(false);
         }
     }
 
     boolean checkIfAllSharedPreferencesExist() {
         boolean allKeysExist = true;
-        for (String key : Constants.sftpKeys) {
+        for (String key : Constants.smbKeys) {
             if (!sharedPreferences.contains(key)) {
                 allKeysExist = false;
                 break;
@@ -59,10 +61,10 @@ public class SftpSettingsDialog {
         return allKeysExist;
     }
 
-    void optionsForExistSftpCredentials() {
-        final CharSequence[] OPTIONS = {Constants.showSftpCredentials,
-                                        Constants.editSftpCredentials,
-                                        Constants.useSftpCredentials};
+    void optionsForExistSmbCredentials() {
+        final CharSequence[] OPTIONS = {Constants.showSmbCredentials,
+                                        Constants.editSmbCredentials,
+                                        Constants.useSmbCredentials};
 
         AlertDialog.Builder optionsForExistsCredentials = new AlertDialog.Builder(context);
         optionsForExistsCredentials.setTitle(Constants.titleViewChoose);
@@ -72,14 +74,14 @@ public class SftpSettingsDialog {
             String selectedOptions = OPTIONS[which].toString();
 
             switch (selectedOptions) {
-                case Constants.showSftpCredentials:
-                    showSftpSettings();
+                case Constants.showSmbCredentials:
+                    showSmbCredentials();
                     break;
-                case Constants.editSftpCredentials:
-                    createSftpCredentials(true);
+                case Constants.editSmbCredentials:
+                    createSmbCredentials(true);
                     break;
-                case Constants.useSftpCredentials:
-                    useSftpCredentials();
+                case Constants.useSmbCredentials:
+                    useSmbCredentials();
                     break;
             }
         });
@@ -87,86 +89,65 @@ public class SftpSettingsDialog {
         optionsForExistsCredentials.show();
     }
 
-    void showSftpSettings() {
+    void showSmbCredentials() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(Constants.titleViewSftpCredentials);
+        builder.setTitle(Constants.titleViewSmbCredentials);
         builder.setMessage(Constants.HOST_KEY + ": " + getHost()
                 + "\n" + Constants.USERNAME_KEY + ": " + getUsername()
-                + "\n" + Constants.PASSWORD_KEY + ": "  + getPassword()
-                + "\n" + Constants.PORT_KEY + ": " + getPort()
-                + "\n" + Constants.PRIVATE_KEY_PATH_KEY + ": "  + getPrivateKeyPath()
-                + "\n" + Constants.PASSPHRASE_KEY + ": "  + getPassphrase());
+                + "\n" + Constants.PASSWORD_KEY + ": "  + getPassword());
         builder.setPositiveButton("BACK", (dialog, which) -> {
             dialog.dismiss();
-            optionsForExistSftpCredentials();
+            optionsForExistSmbCredentials();
         });
         builder.show();
     }
 
-    void createSftpCredentials(Boolean dataExists) {
-        final EditText  HOST = new EditText(context),
-                        USERNAME = new EditText(context),
-                        PASSWORD = new EditText(context),
-                        PORT = new EditText(context),
-                        PRIVATE_KEY_PATH = new EditText(context),
-                        PASSPHRASE = new EditText(context);
+    void createSmbCredentials(Boolean dataExists) {
+        final EditText HOST = new EditText(context),
+                USERNAME = new EditText(context),
+                PASSWORD = new EditText(context);
 
-        setHint(HOST, USERNAME, PASSWORD, PORT, PRIVATE_KEY_PATH, PASSPHRASE);
+        setHint(HOST,USERNAME,PASSWORD);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(Constants.titleViewSftpCredentials);
-        LinearLayout layout = createLayoutSftpCredentials(HOST,USERNAME, PASSWORD, PORT, PRIVATE_KEY_PATH, PASSPHRASE);
+        builder.setTitle(Constants.titleViewSmbCredentials);
+        LinearLayout layout = createLayoutSmbCredentials(HOST,USERNAME, PASSWORD);
         builder.setView(layout);
 
         builder.setPositiveButton("Save", (dialog, which) -> {
-            saveDataSftpCredentials(HOST, USERNAME, PASSWORD, PORT, PRIVATE_KEY_PATH, PASSPHRASE);
-            optionsForExistSftpCredentials();
+            saveDataSmbCredentials(HOST,USERNAME, PASSWORD);
+            optionsForExistSmbCredentials();
         });
 
         setNegativeButtonForBuilder(builder,dataExists);
         builder.show();
     }
 
-    void setHint(EditText HOST, EditText USERNAME, EditText PASSWORD, EditText PORT,
-                 EditText PRIVATE_KEY_PATH, EditText PASSPHRASE) {
+    void setHint(EditText HOST, EditText USERNAME, EditText PASSWORD) {
         HOST.setHint(Constants.HOST_KEY);
         USERNAME.setHint(Constants.USERNAME_KEY);
         PASSWORD.setHint(Constants.PASSWORD_KEY);
-        PORT.setHint(Constants.PORT_KEY);
-        PRIVATE_KEY_PATH.setHint(Constants.PRIVATE_KEY_PATH_KEY);
-        PASSPHRASE.setHint(Constants.PASSPHRASE_KEY);
     }
 
-    LinearLayout createLayoutSftpCredentials(EditText HOST, EditText USERNAME, EditText PASSWORD, EditText PORT,
-                                     EditText PRIVATE_KEY_PATH, EditText PASSPHRASE) {
+    LinearLayout createLayoutSmbCredentials(EditText HOST, EditText USERNAME, EditText PASSWORD) {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(HOST);
         layout.addView(USERNAME);
         layout.addView(PASSWORD);
-        layout.addView(PORT);
-        layout.addView(PRIVATE_KEY_PATH);
-        layout.addView(PASSPHRASE);
 
         return layout;
     }
 
-    void saveDataSftpCredentials(EditText HOST, EditText USERNAME, EditText PASSWORD, EditText PORT,
-                                 EditText PRIVATE_KEY_PATH, EditText PASSPHRASE) {
+    void saveDataSmbCredentials(EditText HOST, EditText USERNAME, EditText PASSWORD) {
         String host = HOST.getText().toString();
         String username = USERNAME.getText().toString();
         String password = PASSWORD.getText().toString();
-        String port = PORT.getText().toString();
-        String privateKeyPath = PRIVATE_KEY_PATH.getText().toString();
-        String passphrase = PASSPHRASE.getText().toString();
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.HOST_KEY, host);
         editor.putString(Constants.USERNAME_KEY, username);
         editor.putString(Constants.PASSWORD_KEY, password);
-        editor.putString(Constants.PORT_KEY, port);
-        editor.putString(Constants.PRIVATE_KEY_PATH_KEY, privateKeyPath);
-        editor.putString(Constants.PASSPHRASE_KEY, passphrase);
         editor.apply();
     }
 
@@ -174,7 +155,7 @@ public class SftpSettingsDialog {
         if(dataExists) {
             builder.setNegativeButton("Back", (dialog, which) -> {
                 dialog.dismiss();
-                optionsForExistSftpCredentials();
+                optionsForExistSmbCredentials();
             });
         }
         else {
@@ -182,32 +163,20 @@ public class SftpSettingsDialog {
         }
     }
 
-    void useSftpCredentials() {
-        WifiSftp wifiSftp = new WifiSftp(context);
-        wifiSftp.openConnection();
+    void useSmbCredentials() {
+        //WifiSmb wifiSmb = new WifiSmb(context);
+        Toast.makeText(context, "Start connecting", Toast.LENGTH_SHORT).show();
     }
 
-    public String getHost() {
+    String getHost() {
         return sharedPreferences.getString(Constants.HOST_KEY, "");
     }
 
-    public String getUsername() {
+    String getUsername() {
         return sharedPreferences.getString(Constants.USERNAME_KEY, "");
     }
 
-    public String getPassword() {
+    String getPassword() {
         return sharedPreferences.getString(Constants.PASSWORD_KEY, "");
-    }
-
-    public String getPort() {
-        return sharedPreferences.getString(Constants.PORT_KEY,"");
-    }
-
-    public String getPrivateKeyPath() {
-        return sharedPreferences.getString(Constants.PRIVATE_KEY_PATH_KEY, "");
-    }
-
-    public String getPassphrase() {
-        return sharedPreferences.getString(Constants.PASSPHRASE_KEY, "");
     }
 }

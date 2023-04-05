@@ -107,8 +107,8 @@ public class WifiMethodsSelect {
 
     void startWifiSmb() {
         dialog.cancel();
-        //WifiSmb wifiSmb = new WifiSmb();
-
+        SmbSettingsDialog smbSettingsDialog = new SmbSettingsDialog(context);
+        smbSettingsDialog.checkIfSmbCredentialsSaved();
     }
 
     void showAlertDialog(AlertDialog.Builder alertDialog) {

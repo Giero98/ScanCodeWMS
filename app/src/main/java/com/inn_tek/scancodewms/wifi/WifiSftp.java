@@ -19,7 +19,10 @@
 
 package com.inn_tek.scancodewms.wifi;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.inn_tek.scancodewms.Constants;
 import com.jcraft.jsch.ChannelSftp;
@@ -33,39 +36,61 @@ import java.io.File;
 public class WifiSftp {
 
     Context context;
+    String host, username, password, privateKeyPath, passphrase, port;
 
     public WifiSftp(Context context) {
         this.context = context;
+        assignmentCredentials();
+    }
+
+    void assignmentCredentials() {
+        SftpSettingsDialog sftpSettings = new SftpSettingsDialog(context);
+        host = sftpSettings.getHost();
+        username = sftpSettings.getUsername();
+        password = sftpSettings.getPassword();
+        port = sftpSettings.getPort();
+        privateKeyPath = sftpSettings.getPrivateKeyPath();
+        passphrase = sftpSettings.getPassphrase();
     }
 
     public void openConnection() {
-        String host = "example.com";
-        int port = 22;
-        String username = "user";
-        String password = "password";
-        String privateKeyPath = "/path/to/private/key";
-        String passphrase = "passphrase";
-
         JSch jsch = new JSch();
 
-        setPrivateKeyWithPassphrase(jsch, privateKeyPath, passphrase);
-        Session session = getSessionWithJSch(jsch, username, host, port);
-        setSessionPassword(session, password);
-        setSessionConfig(session);
-        connectSession(session);
+        if(!privateKeyPath.equals("") && !passphrase.equals("")) {
+            setPrivateKeyWithPassphrase(jsch, privateKeyPath, passphrase);
+        }
 
-        ChannelSftp sftpChannel = openSftpChannel(session);
-        connectSftpChannel(sftpChannel);
+        if(!username.equals("") && !host.equals("") && !password.equals("") && !port.equals("")) {
+            try {
+                Integer.parseInt(port);
+            } catch (NumberFormatException e) {
+                Toast.makeText(context, "Wrong port", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Session session = getSessionWithJSch(jsch, username, host, Integer.parseInt(port));
+            setSessionPassword(session, password);
+            setSessionConfig(session);
+            new Thread(() -> {
+                connectSession(session);
 
-        sendFiles(sftpChannel);
+                ChannelSftp sftpChannel = openSftpChannel(session);
+                connectSftpChannel(sftpChannel);
 
-        closeConnection(sftpChannel, session);
+                sendFiles(sftpChannel);
+
+                closeConnection(sftpChannel, session);
+            }).start();
+        }
+        else {
+            Toast.makeText(context, "Insufficient credentials", Toast.LENGTH_SHORT).show();
+        }
     }
 
     void setPrivateKeyWithPassphrase(JSch jsch, String privateKeyPath, String passphrase) {
         try {
             jsch.addIdentity(privateKeyPath, passphrase);
         } catch (JSchException e) {
+            Log.e("jsch.addIdentity",e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -75,6 +100,7 @@ public class WifiSftp {
         try {
             session = jsch.getSession(username, host, port);
         } catch (JSchException e) {
+            Log.e("session = jsch.getSession",e.getMessage());
             throw new RuntimeException(e);
         }
         return session;
@@ -85,13 +111,16 @@ public class WifiSftp {
     }
 
     void setSessionConfig(Session session) {
-        session.setConfig("StrictHostKeyChecking", "no");
+        session.setConfig("StrictHostKeyChecking", "yes");
     }
 
     void connectSession(Session session) {
         try {
             session.connect();
         } catch (JSchException e) {
+            Log.e("session.connect()",e.getMessage());
+            ((Activity) context).runOnUiThread(() ->
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show());
             throw new RuntimeException(e);
         }
     }
@@ -101,6 +130,7 @@ public class WifiSftp {
         try {
             sftpChannel = (ChannelSftp) session.openChannel("sftp");
         } catch (JSchException e) {
+            Log.e("sftpChannel = session.openChannel",e.getMessage());
             throw new RuntimeException(e);
         }
         return sftpChannel;
@@ -110,6 +140,7 @@ public class WifiSftp {
         try {
             sftpChannel.connect();
         } catch (JSchException e) {
+            Log.e("sftpChannel.connect()",e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -125,6 +156,7 @@ public class WifiSftp {
                 try {
                     sftpChannel.put(localFile.getAbsolutePath(), remoteFilePath);
                 } catch (SftpException e) {
+                    Log.e("sftpChannel.put",e.getMessage());
                     throw new RuntimeException(e);
                 }
             }
