@@ -36,7 +36,7 @@ import java.io.File;
 public class WifiSftp {
 
     Context context;
-    String host, username, password, privateKeyPath, passphrase, port;
+    String host, username, password, port, remoteDirectoryPath;
 
     public WifiSftp(Context context) {
         this.context = context;
@@ -49,27 +49,25 @@ public class WifiSftp {
         username = sftpSettings.getUsername();
         password = sftpSettings.getPassword();
         port = sftpSettings.getPort();
-        privateKeyPath = sftpSettings.getPrivateKeyPath();
-        passphrase = sftpSettings.getPassphrase();
+        remoteDirectoryPath = sftpSettings.getRemoteDirectoryPath();
     }
 
     public void openConnection() {
         JSch jsch = new JSch();
 
-        if(!privateKeyPath.equals("") && !passphrase.equals("")) {
-            setPrivateKeyWithPassphrase(jsch, privateKeyPath, passphrase);
-        }
-
-        if(!username.equals("") && !host.equals("") && !password.equals("") && !port.equals("")) {
+        if(!username.equals("") && !host.equals("") && !password.equals("")
+                && !port.equals("") && !remoteDirectoryPath.equals("")) {
             try {
                 Integer.parseInt(port);
             } catch (NumberFormatException e) {
                 Toast.makeText(context, "Wrong port", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             Session session = getSessionWithJSch(jsch, username, host, Integer.parseInt(port));
             setSessionPassword(session, password);
             setSessionConfig(session);
+
             new Thread(() -> {
                 connectSession(session);
 
@@ -83,15 +81,6 @@ public class WifiSftp {
         }
         else {
             Toast.makeText(context, "Insufficient credentials", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    void setPrivateKeyWithPassphrase(JSch jsch, String privateKeyPath, String passphrase) {
-        try {
-            jsch.addIdentity(privateKeyPath, passphrase);
-        } catch (JSchException e) {
-            Log.e("jsch.addIdentity",e.getMessage());
-            throw new RuntimeException(e);
         }
     }
 
@@ -111,7 +100,9 @@ public class WifiSftp {
     }
 
     void setSessionConfig(Session session) {
-        session.setConfig("StrictHostKeyChecking", "yes");
+        java.util.Properties config = new java.util.Properties();
+        config.put("StrictHostKeyChecking", "no");
+        session.setConfig(config);
     }
 
     void connectSession(Session session) {
@@ -146,8 +137,10 @@ public class WifiSftp {
     }
 
     void sendFiles(ChannelSftp sftpChannel) {
-        String remoteDirectoryPath = "/remote/directory/";
         File[] localFiles = Constants.appFolder.listFiles();
+
+        ((Activity) context).runOnUiThread(() ->
+                Toast.makeText(context, "Sending started", Toast.LENGTH_SHORT).show());
 
         assert localFiles != null;
         for (File localFile : localFiles) {
@@ -161,6 +154,9 @@ public class WifiSftp {
                 }
             }
         }
+
+        ((Activity) context).runOnUiThread(() ->
+                Toast.makeText(context, "Upload complete", Toast.LENGTH_SHORT).show());
     }
 
     void closeConnection(ChannelSftp sftpChannel, Session session) {

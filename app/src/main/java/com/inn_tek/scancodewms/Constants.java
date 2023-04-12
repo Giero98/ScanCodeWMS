@@ -40,12 +40,11 @@ public interface Constants {
 
     String  SFTP_PREFS_NAME = "SFTP_PREFS",
             SMB_PREFS_NAME = "SMB_PREFS",
-            HOST_KEY = "Host",
+            HOST_KEY = "Host (IP Address)",
             USERNAME_KEY = "Username",
             PASSWORD_KEY = "Password",
-            PRIVATE_KEY_PATH_KEY = "Private key path",
-            PASSPHRASE_KEY = "Passphrase",
-            PORT_KEY = "Port";
+            PORT_KEY = "Port",
+            REMOTE_DIRECTORY_PATH_KEY = "Remote directory path";
 
     String  folderName = "ScanCodeWMS",
             titleViewOnSelectTechnology = "Choose a sending method",
@@ -64,7 +63,7 @@ public interface Constants {
             dateFormatToFileName = "yyyyMMddHHmmss",
             requestToDeleteFiles = "Do you want to delete the existing files in the application folder before scanning?";
 
-    String[]    sftpKeys = {HOST_KEY, USERNAME_KEY, PASSWORD_KEY, PORT_KEY, PRIVATE_KEY_PATH_KEY, PASSPHRASE_KEY},
+    String[]    sftpKeys = {HOST_KEY, USERNAME_KEY, PASSWORD_KEY, PORT_KEY, REMOTE_DIRECTORY_PATH_KEY},
                 smbKeys = {HOST_KEY, USERNAME_KEY, PASSWORD_KEY};
     List<Integer>   requestBasicCodes = Arrays.asList(REQUEST_CAMERA, REQUEST_WRITE_EXTERNAL_STORAGE, REQUEST_READ_EXTERNAL_STORAGE),
                     requestBtCodes = Arrays.asList(REQUEST_BT_CONNECT, REQUEST_BT_SCAN, REQUEST_BT_ADVERTISE, REQUEST_ACCESS_FINE_LOCATION),

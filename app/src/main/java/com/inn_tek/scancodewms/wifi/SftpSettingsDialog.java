@@ -23,6 +23,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.InputType;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -94,8 +95,7 @@ public class SftpSettingsDialog {
                 + "\n" + Constants.USERNAME_KEY + ": " + getUsername()
                 + "\n" + Constants.PASSWORD_KEY + ": "  + getPassword()
                 + "\n" + Constants.PORT_KEY + ": " + getPort()
-                + "\n" + Constants.PRIVATE_KEY_PATH_KEY + ": "  + getPrivateKeyPath()
-                + "\n" + Constants.PASSPHRASE_KEY + ": "  + getPassphrase());
+                + "\n" + Constants.REMOTE_DIRECTORY_PATH_KEY + ": " + getRemoteDirectoryPath());
         builder.setPositiveButton("BACK", (dialog, which) -> {
             dialog.dismiss();
             optionsForExistSftpCredentials();
@@ -108,18 +108,17 @@ public class SftpSettingsDialog {
                         USERNAME = new EditText(context),
                         PASSWORD = new EditText(context),
                         PORT = new EditText(context),
-                        PRIVATE_KEY_PATH = new EditText(context),
-                        PASSPHRASE = new EditText(context);
+                        REMOTE_DIRECTORY_PATH = new EditText(context);
 
-        setHint(HOST, USERNAME, PASSWORD, PORT, PRIVATE_KEY_PATH, PASSPHRASE);
+        setHint(HOST, USERNAME, PASSWORD, PORT, REMOTE_DIRECTORY_PATH);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(Constants.titleViewSftpCredentials);
-        LinearLayout layout = createLayoutSftpCredentials(HOST,USERNAME, PASSWORD, PORT, PRIVATE_KEY_PATH, PASSPHRASE);
+        LinearLayout layout = createLayoutSftpCredentials(HOST,USERNAME, PASSWORD, PORT, REMOTE_DIRECTORY_PATH);
         builder.setView(layout);
 
         builder.setPositiveButton("Save", (dialog, which) -> {
-            saveDataSftpCredentials(HOST, USERNAME, PASSWORD, PORT, PRIVATE_KEY_PATH, PASSPHRASE);
+            saveDataSftpCredentials(HOST, USERNAME, PASSWORD, PORT, REMOTE_DIRECTORY_PATH);
             optionsForExistSftpCredentials();
         });
 
@@ -127,46 +126,42 @@ public class SftpSettingsDialog {
         builder.show();
     }
 
-    void setHint(EditText HOST, EditText USERNAME, EditText PASSWORD, EditText PORT,
-                 EditText PRIVATE_KEY_PATH, EditText PASSPHRASE) {
+    void setHint(EditText HOST, EditText USERNAME, EditText PASSWORD, EditText PORT, EditText REMOTE_DIRECTORY_PATH) {
         HOST.setHint(Constants.HOST_KEY);
         USERNAME.setHint(Constants.USERNAME_KEY);
         PASSWORD.setHint(Constants.PASSWORD_KEY);
+        PASSWORD.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         PORT.setHint(Constants.PORT_KEY);
-        PRIVATE_KEY_PATH.setHint(Constants.PRIVATE_KEY_PATH_KEY);
-        PASSPHRASE.setHint(Constants.PASSPHRASE_KEY);
+        REMOTE_DIRECTORY_PATH.setHint(Constants.REMOTE_DIRECTORY_PATH_KEY);
     }
 
-    LinearLayout createLayoutSftpCredentials(EditText HOST, EditText USERNAME, EditText PASSWORD, EditText PORT,
-                                     EditText PRIVATE_KEY_PATH, EditText PASSPHRASE) {
+    LinearLayout createLayoutSftpCredentials(EditText HOST, EditText USERNAME, EditText PASSWORD,
+                                             EditText PORT, EditText REMOTE_DIRECTORY_PATH) {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(HOST);
         layout.addView(USERNAME);
         layout.addView(PASSWORD);
         layout.addView(PORT);
-        layout.addView(PRIVATE_KEY_PATH);
-        layout.addView(PASSPHRASE);
+        layout.addView(REMOTE_DIRECTORY_PATH);
 
         return layout;
     }
 
-    void saveDataSftpCredentials(EditText HOST, EditText USERNAME, EditText PASSWORD, EditText PORT,
-                                 EditText PRIVATE_KEY_PATH, EditText PASSPHRASE) {
+    void saveDataSftpCredentials(EditText HOST, EditText USERNAME, EditText PASSWORD,
+                                 EditText PORT, EditText REMOTE_DIRECTORY_PATH) {
         String host = HOST.getText().toString();
         String username = USERNAME.getText().toString();
         String password = PASSWORD.getText().toString();
         String port = PORT.getText().toString();
-        String privateKeyPath = PRIVATE_KEY_PATH.getText().toString();
-        String passphrase = PASSPHRASE.getText().toString();
+        String remoteDirectoryPath = REMOTE_DIRECTORY_PATH.getText().toString();
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.HOST_KEY, host);
         editor.putString(Constants.USERNAME_KEY, username);
         editor.putString(Constants.PASSWORD_KEY, password);
         editor.putString(Constants.PORT_KEY, port);
-        editor.putString(Constants.PRIVATE_KEY_PATH_KEY, privateKeyPath);
-        editor.putString(Constants.PASSPHRASE_KEY, passphrase);
+        editor.putString(Constants.REMOTE_DIRECTORY_PATH_KEY, remoteDirectoryPath);
         editor.apply();
     }
 
@@ -203,11 +198,7 @@ public class SftpSettingsDialog {
         return sharedPreferences.getString(Constants.PORT_KEY,"");
     }
 
-    public String getPrivateKeyPath() {
-        return sharedPreferences.getString(Constants.PRIVATE_KEY_PATH_KEY, "");
-    }
-
-    public String getPassphrase() {
-        return sharedPreferences.getString(Constants.PASSPHRASE_KEY, "");
+    public String getRemoteDirectoryPath() {
+        return sharedPreferences.getString(Constants.REMOTE_DIRECTORY_PATH_KEY,"");
     }
 }
