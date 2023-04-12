@@ -9,6 +9,7 @@ The ic_inn_tek_logo.png is the logo of Inn-Tek Sp. z o.o.
 
 ### Features
 
+- Change language to: English, Polish.
 - The app creates its own folder in your downloaded directory.
 - Determining the name of the created file with codes.
 - Determination after how many scans of codes are to be saved to a new file.
@@ -17,6 +18,7 @@ The ic_inn_tek_logo.png is the logo of Inn-Tek Sp. z o.o.
 - Use auto focus and flashlight while scanning.
 - Display of the number of scanned codes so far.
 - Sending files to another device via Bluetooth.
+- Uploading files to an SFTP server.
 
 ### Receiving files via Windows
 
