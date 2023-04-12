@@ -21,6 +21,7 @@ package com.inn_tek.scancodewms.wifi;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.inn_tek.scancodewms.Constants;
@@ -59,7 +60,7 @@ public class WifiSftp {
             return;
         }
 
-        if(checkIfPortIsNumber()) {
+        if(!checkIfPortIsNumber()) {
             Toast.makeText(context, context.getString(R.string.wrong_port), Toast.LENGTH_SHORT).show();
             return;
         }
