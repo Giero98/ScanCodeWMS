@@ -21,7 +21,6 @@ package com.inn_tek.scancodewms.wifi;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.inn_tek.scancodewms.Constants;
@@ -53,43 +52,53 @@ public class WifiSftp {
     }
 
     public void openConnection() {
-        JSch jsch = new JSch();
 
-        if(!username.equals("") && !host.equals("") && !password.equals("")
-                && !port.equals("") && !remoteDirectoryPath.equals("")) {
-            try {
-                Integer.parseInt(port);
-            } catch (NumberFormatException e) {
-                Toast.makeText(context, "Wrong port", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Session session = getSessionWithJSch(jsch, username, host, Integer.parseInt(port));
-            setSessionPassword(session, password);
-            setSessionConfig(session);
-
-            new Thread(() -> {
-                connectSession(session);
-
-                ChannelSftp sftpChannel = openSftpChannel(session);
-                connectSftpChannel(sftpChannel);
-
-                sendFiles(sftpChannel);
-
-                closeConnection(sftpChannel, session);
-            }).start();
-        }
-        else {
+        if(checkIfDataIsEmpty()) {
             Toast.makeText(context, "Insufficient credentials", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(checkIfPortIsNumber()) {
+            Toast.makeText(context, "Wrong port", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Session session = getSession(username, host, Integer.parseInt(port));
+        setSessionPassword(session, password);
+        setSessionConfig(session);
+
+        new Thread(() -> {
+            connectSession(session);
+
+            ChannelSftp sftpChannel = openSftpChannel(session);
+            connectSftpChannel(sftpChannel);
+
+            sendFiles(sftpChannel);
+
+            closeConnection(sftpChannel, session);
+        }).start();
+    }
+
+    boolean checkIfDataIsEmpty() {
+        return username.equals("") && host.equals("") && password.equals("") && port.equals("") && remoteDirectoryPath.equals("");
+    }
+
+    boolean checkIfPortIsNumber() {
+        try {
+            Integer.parseInt(port);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
-    Session getSessionWithJSch(JSch jsch, String username, String host, int port) {
+    Session getSession(String username, String host, int port) {
+        JSch jsch = new JSch();
         Session session;
         try {
             session = jsch.getSession(username, host, port);
         } catch (JSchException e) {
-            Log.e("session = jsch.getSession",e.getMessage());
+            Toast.makeText(context, "Failed to create session", Toast.LENGTH_SHORT).show();
             throw new RuntimeException(e);
         }
         return session;
@@ -109,9 +118,8 @@ public class WifiSftp {
         try {
             session.connect();
         } catch (JSchException e) {
-            Log.e("session.connect()",e.getMessage());
             ((Activity) context).runOnUiThread(() ->
-                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show());
+                    Toast.makeText(context,"Failed to connect", Toast.LENGTH_LONG).show());
             throw new RuntimeException(e);
         }
     }
@@ -121,7 +129,8 @@ public class WifiSftp {
         try {
             sftpChannel = (ChannelSftp) session.openChannel("sftp");
         } catch (JSchException e) {
-            Log.e("sftpChannel = session.openChannel",e.getMessage());
+            ((Activity) context).runOnUiThread(() ->
+                    Toast.makeText(context,"Failed to open channel", Toast.LENGTH_LONG).show());
             throw new RuntimeException(e);
         }
         return sftpChannel;
@@ -131,7 +140,8 @@ public class WifiSftp {
         try {
             sftpChannel.connect();
         } catch (JSchException e) {
-            Log.e("sftpChannel.connect()",e.getMessage());
+            ((Activity) context).runOnUiThread(() ->
+                    Toast.makeText(context,"Channel connection failed", Toast.LENGTH_LONG).show());
             throw new RuntimeException(e);
         }
     }
@@ -149,7 +159,8 @@ public class WifiSftp {
                 try {
                     sftpChannel.put(localFile.getAbsolutePath(), remoteFilePath);
                 } catch (SftpException e) {
-                    Log.e("sftpChannel.put",e.getMessage());
+                    ((Activity) context).runOnUiThread(() ->
+                            Toast.makeText(context,"Failed to send file", Toast.LENGTH_LONG).show());
                     throw new RuntimeException(e);
                 }
             }
