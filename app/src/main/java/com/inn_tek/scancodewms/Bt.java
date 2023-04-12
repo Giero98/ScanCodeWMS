@@ -89,7 +89,7 @@ public class Bt extends AppCompatActivity {
         assert files != null;
         if(folderIsEmpty(files)) {
             ((Activity) context).runOnUiThread(() ->
-                    Toast.makeText(context, "There are no file to send", Toast.LENGTH_SHORT).show());
+                    Toast.makeText(context, context.getString(R.string.not_valid_prefix), Toast.LENGTH_SHORT).show());
         }
         else {
             prepareAndSendFiles(files);

@@ -28,6 +28,7 @@ import android.net.wifi.WifiManager;
 import android.provider.Settings;
 
 import com.inn_tek.scancodewms.Constants;
+import com.inn_tek.scancodewms.R;
 
 public class WifiMethodsSelect {
 
@@ -80,9 +81,9 @@ public class WifiMethodsSelect {
         final CharSequence[] PROTOCOLS = {Constants.sftp, Constants.smb};
 
         AlertDialog.Builder selectTransferMethodOnWifi = new AlertDialog.Builder(context);
-        selectTransferMethodOnWifi.setTitle(Constants.titleViewOnTransferMethodOnWifi);
+        selectTransferMethodOnWifi.setTitle(context.getString(R.string.select_protocol));
 
-        selectTransferMethodOnWifi.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        selectTransferMethodOnWifi.setNegativeButton(context.getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
         selectTransferMethodOnWifi.setItems(PROTOCOLS, (dialog, which) -> {
             String selectedProtocol = PROTOCOLS[which].toString();
 

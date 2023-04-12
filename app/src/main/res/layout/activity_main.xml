@@ -30,7 +30,7 @@
         android:id="@+id/fileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/edit_text_file_name"
+        android:hint="@string/file_name"
         tools:ignore="Autofill,TextFields" />
 
     <EditText
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="7"
-        android:hint="@string/edit_text_number_of_scans"
+        android:hint="@string/number_of_scans"
         android:inputType="number"
         tools:ignore="Autofill,TouchTargetSizeCheck" />
 
@@ -46,14 +46,14 @@
         android:id="@+id/initialPrefix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/edit_text_initial_prefix"
+        android:hint="@string/initial_prefix"
         tools:ignore="Autofill,TextFields,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/startScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_start_scan" />
+        android:text="@string/start_scan" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

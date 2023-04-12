@@ -47,21 +47,9 @@ public interface Constants {
             REMOTE_DIRECTORY_PATH_KEY = "Remote directory path";
 
     String  folderName = "ScanCodeWMS",
-            titleViewOnSelectTechnology = "Choose a sending method",
-            titleViewOnTransferMethodOnWifi = "Select a protocol",
-            titleViewSftpCredentials = "SFTP Credentials",
-            titleViewSmbCredentials = "SMB Credentials",
-            titleViewChoose = "Choose",
-            showSftpCredentials = "Show SFTP Credentials",
-            editSftpCredentials = "Change SFTP Credentials",
-            useSftpCredentials = "Use SFTP Credentials",
-            showSmbCredentials = "Show SMB Credentials",
-            editSmbCredentials = "Change SMB Credentials",
-            useSmbCredentials = "Use SMB Credentials",
             sftp = "SFTP",
             smb = "SMB",
-            dateFormatToFileName = "yyyyMMddHHmmss",
-            requestToDeleteFiles = "Do you want to delete the existing files in the application folder before scanning?";
+            dateFormatToFileName = "yyyyMMddHHmmss";
 
     String[]    sftpKeys = {HOST_KEY, USERNAME_KEY, PASSWORD_KEY, PORT_KEY, REMOTE_DIRECTORY_PATH_KEY},
                 smbKeys = {HOST_KEY, USERNAME_KEY, PASSWORD_KEY};

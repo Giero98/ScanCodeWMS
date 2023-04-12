@@ -20,12 +20,17 @@
 package com.inn_tek.scancodewms;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else {
-            Toast.makeText(this, "No camera on this device", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.no_camera), Toast.LENGTH_SHORT).show();
             return false;
         }
     }
@@ -74,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
                 openActivityScanning(fName, nScans, iPrefix);
             }
             else {
-                Toast.makeText(this, "Enter the number of scans", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.enter_target_number_of_scans), Toast.LENGTH_SHORT).show();
             }
         }
         else {
-            Toast.makeText(this, "Enter the name of the file", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.enter_file_name), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -121,5 +126,30 @@ public class MainActivity extends AppCompatActivity {
                 permissions.checkWifiPermissions();
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.about_author:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(getString(R.string.about_author))
+                        .setMessage(getString(R.string.text_about_author))
+                        .setPositiveButton("OK", null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
+            case R.id.change_language:
+                ChangeLanguage changeLanguage = new ChangeLanguage(this,this);
+                changeLanguage.chooseLanguage();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

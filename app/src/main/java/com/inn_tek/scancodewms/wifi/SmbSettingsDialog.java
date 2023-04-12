@@ -25,11 +25,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.inn_tek.scancodewms.Constants;
+import com.inn_tek.scancodewms.R;
 
 public class SmbSettingsDialog {
 
@@ -62,25 +62,23 @@ public class SmbSettingsDialog {
     }
 
     void optionsForExistSmbCredentials() {
-        final CharSequence[] OPTIONS = {Constants.showSmbCredentials,
-                                        Constants.editSmbCredentials,
-                                        Constants.useSmbCredentials};
+        final CharSequence[] OPTIONS = {context.getString(R.string.show_smb),
+                                        context.getString(R.string.change_smb),
+                                        context.getString(R.string.use_smb)};
 
         AlertDialog.Builder optionsForExistsCredentials = new AlertDialog.Builder(context);
-        optionsForExistsCredentials.setTitle(Constants.titleViewChoose);
+        optionsForExistsCredentials.setTitle(context.getString(R.string.choose));
 
-        optionsForExistsCredentials.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        optionsForExistsCredentials.setNegativeButton(context.getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
         optionsForExistsCredentials.setItems(OPTIONS, (dialog, which) -> {
-            String selectedOptions = OPTIONS[which].toString();
-
-            switch (selectedOptions) {
-                case Constants.showSmbCredentials:
+            switch (which) {
+                case 0:
                     showSmbCredentials();
                     break;
-                case Constants.editSmbCredentials:
+                case 1:
                     createSmbCredentials(true);
                     break;
-                case Constants.useSmbCredentials:
+                case 2:
                     useSmbCredentials();
                     break;
             }
@@ -91,11 +89,11 @@ public class SmbSettingsDialog {
 
     void showSmbCredentials() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(Constants.titleViewSmbCredentials);
-        builder.setMessage(Constants.HOST_KEY + ": " + getHost()
-                + "\n" + Constants.USERNAME_KEY + ": " + getUsername()
-                + "\n" + Constants.PASSWORD_KEY + ": "  + getPassword());
-        builder.setPositiveButton("BACK", (dialog, which) -> {
+        builder.setTitle(context.getString(R.string.smb_credentials));
+        builder.setMessage(context.getString(R.string.host_ip) + ": " + getHost()
+                + "\n" + context.getString(R.string.username) + ": " + getUsername()
+                + "\n" + context.getString(R.string.password) + ": "  + getPassword());
+        builder.setPositiveButton(context.getString(R.string.back), (dialog, which) -> {
             dialog.dismiss();
             optionsForExistSmbCredentials();
         });
@@ -110,11 +108,11 @@ public class SmbSettingsDialog {
         setHint(HOST,USERNAME,PASSWORD);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(Constants.titleViewSmbCredentials);
+        builder.setTitle(context.getString(R.string.smb_credentials));
         LinearLayout layout = createLayoutSmbCredentials(HOST,USERNAME, PASSWORD);
         builder.setView(layout);
 
-        builder.setPositiveButton("Save", (dialog, which) -> {
+        builder.setPositiveButton(context.getString(R.string.save), (dialog, which) -> {
             saveDataSmbCredentials(HOST,USERNAME, PASSWORD);
             optionsForExistSmbCredentials();
         });
@@ -124,9 +122,9 @@ public class SmbSettingsDialog {
     }
 
     void setHint(EditText HOST, EditText USERNAME, EditText PASSWORD) {
-        HOST.setHint(Constants.HOST_KEY);
-        USERNAME.setHint(Constants.USERNAME_KEY);
-        PASSWORD.setHint(Constants.PASSWORD_KEY);
+        HOST.setHint(context.getString(R.string.host_ip));
+        USERNAME.setHint(context.getString(R.string.username));
+        PASSWORD.setHint(context.getString(R.string.password));
     }
 
     LinearLayout createLayoutSmbCredentials(EditText HOST, EditText USERNAME, EditText PASSWORD) {
@@ -153,19 +151,18 @@ public class SmbSettingsDialog {
 
     void setNegativeButtonForBuilder(AlertDialog.Builder builder, Boolean dataExists) {
         if(dataExists) {
-            builder.setNegativeButton("Back", (dialog, which) -> {
+            builder.setNegativeButton(context.getString(R.string.back), (dialog, which) -> {
                 dialog.dismiss();
                 optionsForExistSmbCredentials();
             });
         }
         else {
-            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+            builder.setNegativeButton(context.getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
         }
     }
 
     void useSmbCredentials() {
         //WifiSmb wifiSmb = new WifiSmb(context);
-        Toast.makeText(context, "Start connecting", Toast.LENGTH_SHORT).show();
     }
 
     String getHost() {

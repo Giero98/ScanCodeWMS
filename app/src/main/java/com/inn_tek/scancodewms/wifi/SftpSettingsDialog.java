@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AlertDialog;
 
 import com.inn_tek.scancodewms.Constants;
+import com.inn_tek.scancodewms.R;
 
 public class SftpSettingsDialog {
     SharedPreferences sharedPreferences;
@@ -61,25 +62,23 @@ public class SftpSettingsDialog {
     }
 
     void optionsForExistSftpCredentials() {
-        final CharSequence[] OPTIONS = {Constants.showSftpCredentials,
-                                        Constants.editSftpCredentials,
-                                        Constants.useSftpCredentials};
+        final CharSequence[] OPTIONS = {context.getString(R.string.show_sftp),
+                                        context.getString(R.string.change_sftp),
+                                        context.getString(R.string.use_sftp)};
 
         AlertDialog.Builder optionsForExistsCredentials = new AlertDialog.Builder(context);
-        optionsForExistsCredentials.setTitle(Constants.titleViewChoose);
+        optionsForExistsCredentials.setTitle(context.getString(R.string.choose));
 
-        optionsForExistsCredentials.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        optionsForExistsCredentials.setNegativeButton(context.getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
         optionsForExistsCredentials.setItems(OPTIONS, (dialog, which) -> {
-            String selectedOptions = OPTIONS[which].toString();
-
-            switch (selectedOptions) {
-                case Constants.showSftpCredentials:
+            switch (which) {
+                case 0:
                     showSftpSettings();
                     break;
-                case Constants.editSftpCredentials:
+                case 1:
                     createSftpCredentials(true);
                     break;
-                case Constants.useSftpCredentials:
+                case 2:
                     useSftpCredentials();
                     break;
             }
@@ -90,13 +89,13 @@ public class SftpSettingsDialog {
 
     void showSftpSettings() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(Constants.titleViewSftpCredentials);
-        builder.setMessage(Constants.HOST_KEY + ": " + getHost()
-                + "\n" + Constants.USERNAME_KEY + ": " + getUsername()
-                + "\n" + Constants.PASSWORD_KEY + ": "  + getPassword()
-                + "\n" + Constants.PORT_KEY + ": " + getPort()
-                + "\n" + Constants.REMOTE_DIRECTORY_PATH_KEY + ": " + getRemoteDirectoryPath());
-        builder.setPositiveButton("BACK", (dialog, which) -> {
+        builder.setTitle(context.getString(R.string.sftp_credentials));
+        builder.setMessage(context.getString(R.string.host_ip) + ": " + getHost()
+                + "\n" + context.getString(R.string.username) + ": " + getUsername()
+                + "\n" + context.getString(R.string.password) + ": "  + getPassword()
+                + "\n" + context.getString(R.string.port) + ": " + getPort()
+                + "\n" + context.getString(R.string.remote_directory_path) + ": " + getRemoteDirectoryPath());
+        builder.setPositiveButton(context.getString(R.string.back), (dialog, which) -> {
             dialog.dismiss();
             optionsForExistSftpCredentials();
         });
@@ -113,11 +112,11 @@ public class SftpSettingsDialog {
         setHint(HOST, USERNAME, PASSWORD, PORT, REMOTE_DIRECTORY_PATH);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(Constants.titleViewSftpCredentials);
+        builder.setTitle(context.getString(R.string.sftp_credentials));
         LinearLayout layout = createLayoutSftpCredentials(HOST,USERNAME, PASSWORD, PORT, REMOTE_DIRECTORY_PATH);
         builder.setView(layout);
 
-        builder.setPositiveButton("Save", (dialog, which) -> {
+        builder.setPositiveButton(context.getString(R.string.save), (dialog, which) -> {
             saveDataSftpCredentials(HOST, USERNAME, PASSWORD, PORT, REMOTE_DIRECTORY_PATH);
             optionsForExistSftpCredentials();
         });
@@ -127,12 +126,12 @@ public class SftpSettingsDialog {
     }
 
     void setHint(EditText HOST, EditText USERNAME, EditText PASSWORD, EditText PORT, EditText REMOTE_DIRECTORY_PATH) {
-        HOST.setHint(Constants.HOST_KEY);
-        USERNAME.setHint(Constants.USERNAME_KEY);
-        PASSWORD.setHint(Constants.PASSWORD_KEY);
+        HOST.setHint(context.getString(R.string.host_ip));
+        USERNAME.setHint(context.getString(R.string.username));
+        PASSWORD.setHint(context.getString(R.string.password));
         PASSWORD.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        PORT.setHint(Constants.PORT_KEY);
-        REMOTE_DIRECTORY_PATH.setHint(Constants.REMOTE_DIRECTORY_PATH_KEY);
+        PORT.setHint(context.getString(R.string.port));
+        REMOTE_DIRECTORY_PATH.setHint(context.getString(R.string.remote_directory_path));
     }
 
     LinearLayout createLayoutSftpCredentials(EditText HOST, EditText USERNAME, EditText PASSWORD,
@@ -167,13 +166,13 @@ public class SftpSettingsDialog {
 
     void setNegativeButtonForBuilder(AlertDialog.Builder builder, Boolean dataExists) {
         if(dataExists) {
-            builder.setNegativeButton("Back", (dialog, which) -> {
+            builder.setNegativeButton(context.getString(R.string.back), (dialog, which) -> {
                 dialog.dismiss();
                 optionsForExistSftpCredentials();
             });
         }
         else {
-            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+            builder.setNegativeButton(context.getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
         }
     }
 

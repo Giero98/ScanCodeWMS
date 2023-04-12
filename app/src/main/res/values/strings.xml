@@ -18,13 +18,90 @@
     -->
 
 <resources>
-    <string name="app_name">Scan Code WMS</string>
+    <!-- Untranslatable -->
+    <string name="app_name" translatable="false">Scan Code WMS</string>
+    <string name="default_number_of_scan" translatable="false">0</string>
+    <string name="port" translatable="false">Port</string>
+
     <string name="text_about_app">Here is the text about the application</string>
-    <string name="edit_text_file_name">File Name</string>
-    <string name="edit_text_number_of_scans">Number of scans</string>
-    <string name="edit_text_initial_prefix">Initial prefix</string>
-    <string name="button_start_scan">Start Scan</string>
-    <string name="item_send_file">Send File</string>
-    <string name="text_number_of_scan">Number of scans:</string>
-    <string name="default_number_of_scan">0</string>
+
+    <!-- Camera -->
+    <string name="no_camera">No camera on this device</string>
+
+    <!-- Scans -->
+    <string name="initial_prefix">Initial prefix</string>
+    <string name="not_valid_prefix">Not valid prefix</string>
+    <string name="number_of_scans">Number of scans</string>
+    <string name="start_scan">Start Scan</string>
+    <string name="enter_target_number_of_scans">Enter the target number of scans</string>
+    <string name="code_scanned">Code scanned</string>
+
+    <!-- File -->
+    <string name="file_name">File Name</string>
+    <string name="enter_file_name">Enter the name of the file</string>
+    <string name="send_file">Send File</string>
+    <string name="deleted_files">The files have been deleted</string>
+    <string name="request_delete_files">Do you want to delete the existing files in the application folder before scanning?</string>
+    <string name="data_saved_to_file">Data saved to a file</string>
+    <string name="no_file_to_send">There are no file to send</string>
+
+    <string name="error_delete_files">Error in deleting files</string>
+    <string name="error_open_file_to_save_data">Error opening file to save data</string>
+    <string name="error_saved_data_to_file">Error saved data to a file</string>
+    <string name="error_close_streams_to_file">Error close streams to file</string>
+    
+    <!-- About Activity's -->
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="choose">Choose</string>
+    <string name="save">Save</string>
+
+    <!-- Protocols -->
+    <string name="choose_send_method">Choose a sending method</string>
+    <string name="select_protocol">Select a protocol</string>
+    <string name="insufficient_credentials">Insufficient credentials</string>
+    <string name="wrong_port">Wrong port</string>
+
+    <string name="sftp_credentials">SFTP Credentials</string>
+    <string name="show_sftp">Show SFTP Credentials</string>
+    <string name="change_sftp">Change SFTP Credentials</string>
+    <string name="use_sftp">Use SFTP Credentials</string>
+
+    <string name="smb_credentials">SMB Credentials</string>
+    <string name="show_smb">Show SMB Credentials</string>
+    <string name="change_smb">Change SMB Credentials</string>
+    <string name="use_smb">Use SMB Credentials</string>
+
+    <!-- Connection -->
+    <string name="failed_create_session">Failed to create session</string>
+    <string name="failed_connect">Failed to connect</string>
+    <string name="failed_open_channel">Failed to open channel</string>
+    <string name="channel_connection_failed">Channel connection failed</string>
+
+    <!-- Sending -->
+    <string name="sending_started">Sending started</string>
+    <string name="filed_send_file">Failed to send file</string>
+    <string name="upload_complete">Upload complete</string>
+
+    <!-- KEYS -->
+    <string name="host_ip">Host (IP Address)</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="remote_directory_path">Remote directory path</string>
+
+    <!-- Author -->
+    <string name="about_author">About Author</string>
+    <string name="text_about_author">Bartosz Gieras</string>
+
+    <!-- Languages -->
+    <string name="change_lang">Change Language</string>
+    <string name="choose_language">Choose language</string>
+    <string name="polish">Polish</string>
+    <string name="english">English</string>
+
+    <!-- Bluetooth -->
+    <string name="doesnt_support_bt">Device doesn\'t support Bluetooth</string>
+
 </resources>

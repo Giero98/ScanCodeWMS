@@ -23,9 +23,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +49,6 @@ public class CodeScanning extends AppCompatActivity {
     TextView currentNumberOfScans;
     int numberOfScans, currentNumberOfScan = 0;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,11 +90,11 @@ public class CodeScanning extends AppCompatActivity {
     void checkCodeWithInitialPrefix(String code) {
         if(checkPrefixTheScannedCode(code)) {
             addCodeToTheListAndIncreasingNumberOfScan(code);
-            Toast.makeText(this, "Code scanned", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.code_scanned), Toast.LENGTH_SHORT).show();
             checkIfEnoughCodesScanned();
         }
         else {
-            Toast.makeText(this, "Not valid prefix", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.not_valid_prefix), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -136,7 +135,7 @@ public class CodeScanning extends AppCompatActivity {
         File file = new File(appFolder,setFileName() + ".csv");
         proceduresForSavingCodesToFile(file);
         clearCodeList();
-        Toast.makeText(this, "Data saved to a file", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,getString(R.string.data_saved_to_file),Toast.LENGTH_SHORT).show();
     }
 
     String setFileName() {
@@ -155,8 +154,7 @@ public class CodeScanning extends AppCompatActivity {
             closeStreams(fos, osw);
         }
         catch (FileNotFoundException e) {
-            Log.e("Open File","Error opening file to save data: " + e.getMessage());
-            Toast.makeText(this, "Error opening file to save data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_open_file_to_save_data), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -168,8 +166,7 @@ public class CodeScanning extends AppCompatActivity {
             }
         }
         catch (IOException e) {
-            Log.e("Write Data","Error saved data to a file: " + e.getMessage());
-            Toast.makeText(this, "Error saved data to a file", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_saved_data_to_file), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -179,8 +176,7 @@ public class CodeScanning extends AppCompatActivity {
             fos.close();
         }
         catch (IOException e) {
-            Log.e("Close streams","Error close streams to file: " + e.getMessage());
-            Toast.makeText(this, "Error close streams to file", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_close_streams_to_file), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -205,6 +201,12 @@ public class CodeScanning extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+        MenuItem    sendFile = menu.findItem(R.id.send_file),
+                    aboutAuthor = menu.findItem(R.id.about_author),
+                    changeLanguage = menu.findItem(R.id.change_language);
+        sendFile.setVisible(true);
+        aboutAuthor.setVisible(false);
+        changeLanguage.setVisible(false);
         return true;
     }
 

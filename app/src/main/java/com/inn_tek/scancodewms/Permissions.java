@@ -86,7 +86,7 @@ public class Permissions {
 
     boolean checkSupportBt(Context context) {
         if (Constants.bluetoothAdapter == null) {
-            Toast.makeText(context, "Device doesn't support Bluetooth", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.doesnt_support_bt), Toast.LENGTH_SHORT).show();
             return false;
         } else return true;
     }

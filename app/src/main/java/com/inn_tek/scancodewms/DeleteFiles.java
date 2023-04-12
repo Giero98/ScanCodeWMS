@@ -46,9 +46,9 @@ public class DeleteFiles {
 
     void requestToDeleteFiles() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(Constants.requestToDeleteFiles)
-                .setPositiveButton("Yes", (dialog, id) -> deleteFilesFromAppFolder())
-                .setNegativeButton("No", (dialog, id) -> dialog.cancel());
+        builder.setMessage(context.getString(R.string.request_delete_files))
+                .setPositiveButton(context.getString(R.string.yes), (dialog, id) -> deleteFilesFromAppFolder())
+                .setNegativeButton(context.getString(R.string.no), (dialog, id) -> dialog.cancel());
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -56,10 +56,10 @@ public class DeleteFiles {
     void deleteFilesFromAppFolder() {
         for(File file : files) {
             if(!file.delete()) {
-                Toast.makeText(context, "Error in deleting files", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getString(R.string.error_delete_files), Toast.LENGTH_SHORT).show();
                 return;
             }
         }
-        Toast.makeText(context, "The files have been deleted", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getString(R.string.deleted_files), Toast.LENGTH_SHORT).show();
     }
 }

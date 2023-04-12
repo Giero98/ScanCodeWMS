@@ -22,6 +22,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/send_file"
-        android:title="@string/item_send_file"
-        app:showAsAction="always" />
+        android:title="@string/send_file"
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/about_author"
+        android:title="@string/about_author"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/change_language"
+        android:title="@string/change_lang"
+        app:showAsAction="never" />
 </menu>

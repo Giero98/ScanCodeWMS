@@ -38,7 +38,7 @@ public class TransferOption {
 
         AlertDialog.Builder selectTechnology = settingAlertDialog(context, layout);
 
-        selectTechnology.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        selectTechnology.setNegativeButton(context.getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
 
         imageBluetooth.setOnClickListener(v -> new Bt(context));
 
@@ -69,7 +69,7 @@ public class TransferOption {
     AlertDialog.Builder settingAlertDialog(Context context, LinearLayout layout) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setView(layout);
-        alertDialog.setTitle(Constants.titleViewOnSelectTechnology);
+        alertDialog.setTitle(context.getString(R.string.choose_send_method));
 
         return alertDialog;
     }
