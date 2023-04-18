@@ -22,7 +22,7 @@
     <string name="no">Nie</string>
     <string name="error_delete_files">Błąd podczas usuwania plików</string>
     <string name="deleted_files">Pliki zostały usunięte</string>
-    <string name="host_ip">Host (adres IP)</string>
+    <string name="address">Adres</string>
     <string name="username">Nazwa użytkownika</string>
     <string name="password">Hasło</string>
     <string name="remote_directory_path">Ścieżka katalogu zdalnego</string>

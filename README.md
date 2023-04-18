@@ -1,8 +1,5 @@
 # Scan Code WMS
 
-*pictures*
-
-The ic_inn_tek_logo.png is the logo of Inn-Tek Sp. z o.o.
 
 ## Overview
 *short description*
@@ -32,13 +29,17 @@ More information here: [Receive files over Bluetooth for Windows][receiving_file
 - Scanning codes using the library: [Code Scanner][code_scanner] which is licensed MIT License
 - Simulating Android in a test environment using a library: [Robolectric][robolectric] which is license MIT License
 - Connecting to an sshd server and using port forwarding, X11 forwarding, file transfer with the [JSch][jsch] library by [JCraft][jcraft] under the [BSD style license][bsd]
-- SMB2/SMB3 client library [SMBJ][smbj] without a specific license
+
+## Screenshots
+
+The screenshots shown below are licensed [CC-BY-4.0][cc-by-4.0]
 
 ## License
 
 ![alt text][gnu_gplv3_logo]\
 Scan Code WMS created as part of an internship for Inn-Tek Sp. z o.o.\
 ![alt text][inn_tek_logo]\
+The ic_inn_tek_logo.png is the logo of Inn-Tek Sp. z o.o.\
 [GNU GPLv3][gnu_gplv3_link] © Bartosz Gieras
 
 [receiving_files_via_windows]: https://support.microsoft.com/en-us/windows/receive-files-over-bluetooth-d8da2667-e79b-744c-c135-f58af38fc3ba

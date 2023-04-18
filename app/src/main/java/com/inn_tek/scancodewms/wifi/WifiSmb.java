@@ -1,90 +1,78 @@
-/*
-*
+/**
  * Copyright © 2023 Bartosz Gieras
- *
+
  * This file is part of ScanCodeWMS.
- *
+
  * ScanCodeWMS is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
- *
+
  * ScanCodeWMS is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
 
 package com.inn_tek.scancodewms.wifi;
 
-import com.hierynomus.msdtyp.AccessMask;
-import com.hierynomus.smbj.auth.AuthenticationContext;
-import com.hierynomus.smbj.share.DiskShare;
-import com.inn_tek.scancodewms.Constants;
-import com.jcraft.jsch.Session;
+import android.content.Context;
+import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.EnumSet;
+import com.inn_tek.scancodewms.Constants;
+import com.inn_tek.scancodewms.R;
 
 public class WifiSmb {
 
-    public WifiSmb() {
+    Context context;
+    String address, remoteDirectoryPath, port, username, password;
 
+    public WifiSmb(Context context) {
+        this.context = context;
+        assignmentCredentials();
+    }
+
+    void assignmentCredentials() {
+        ProtocolSettingsDialog protocolSettings = new ProtocolSettingsDialog(context, Constants.smb);
+        address = protocolSettings.getAddress();
+        remoteDirectoryPath = protocolSettings.getRemoteDirectoryPath();
+        port = protocolSettings.getPort();
+        username = protocolSettings.getUsername();
+        password = protocolSettings.getPassword();
     }
 
     public void openConnectionAndSendFiles() {
-        String hostname = "example.com";
-        String username = "user";
-        String password = "password";
-
-        try (Connection connection = new Connection(hostname)) {
-            AuthenticationContext ac = new AuthenticationContext(username, password.toCharArray(), "");
-            Session session = connection.authenticate(ac);
-
-            try (DiskShare share = (DiskShare) session.connectShare("sharename")) {
-                sendFiles();
-                closeConnection(connection, session);
-            }
+        if(checkIfDataIsEmpty()) {
+            Toast.makeText(context, context.getString(R.string.insufficient_credentials), Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        if(!checkIfPortIsNumber()) {
+            Toast.makeText(context, context.getString(R.string.wrong_port), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
     }
 
-    void sendFiles() {
-        String remoteDirectoryPath = "/remote/directory/";
-        File[] localFiles = Constants.appFolder.listFiles();
-
-        for (File localFile : localFiles) {
-            if (localFile.isFile()) {
-                String remoteFilePath = remoteDirectoryPath + localFile.getName();
-
-                try (OutputStream outputStream = share.openFile(remoteFilePath,
-                        EnumSet.of(AccessMask.GENERIC_WRITE), null, null, null, null)) {
-                    byte[] buffer = new byte[1024];
-                    int length;
-                    try (FileInputStream inputStream = new FileInputStream(localFile)) {
-                        while ((length = inputStream.read(buffer)) > 0) {
-                            outputStream.write(buffer, 0, length);
-                        }
-                    }
-                }
-            }
-        }
+    boolean checkIfDataIsEmpty() {
+        return address.equals("") && remoteDirectoryPath.equals("") && port.equals("");
     }
 
-    void closeConnection(Connection connection, Session session) {
+    boolean checkIfPortIsNumber() {
         try {
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            Integer.parseInt(port);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
-        session.disconnect();
+    }
+
+    boolean checkIfUsernameAndPasswordIsEmpty() {
+        return username.equals("") && password.equals("");
     }
 }
-*/

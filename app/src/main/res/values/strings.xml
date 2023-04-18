@@ -86,7 +86,7 @@
     <string name="upload_complete">Upload complete</string>
 
     <!-- KEYS -->
-    <string name="host_ip">Host (IP Address)</string>
+    <string name="address">Address</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="remote_directory_path">Remote directory path</string>

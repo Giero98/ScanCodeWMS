@@ -1,18 +1,18 @@
 /**
  * Copyright © 2023 Bartosz Gieras
- *
+
  * This file is part of ScanCodeWMS.
- *
+
  * ScanCodeWMS is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
- *
+
  * ScanCodeWMS is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+
  * You should have received a copy of the GNU General Public License
  * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -89,10 +89,10 @@ public class WifiMethodsSelect {
 
             switch (selectedProtocol) {
                 case Constants.sftp:
-                    startWifiSftp();
+                    startWifiProtocol(Constants.sftp);
                     break;
                 case Constants.smb:
-                    startWifiSmb();
+                    startWifiProtocol(Constants.smb);
                     break;
             }
         });
@@ -100,16 +100,10 @@ public class WifiMethodsSelect {
         showAlertDialog(selectTransferMethodOnWifi);
     }
 
-    void startWifiSftp() {
+    void startWifiProtocol(String protocol) {
         dialog.cancel();
-        SftpSettingsDialog sftpSettingsDialog = new SftpSettingsDialog(context);
-        sftpSettingsDialog.checkIfSftpCredentialsSaved();
-    }
-
-    void startWifiSmb() {
-        dialog.cancel();
-        SmbSettingsDialog smbSettingsDialog = new SmbSettingsDialog(context);
-        smbSettingsDialog.checkIfSmbCredentialsSaved();
+        ProtocolSettingsDialog protocolSettingsDialog = new ProtocolSettingsDialog(context, protocol);
+        protocolSettingsDialog.checkIfCredentialsSaved();
     }
 
     void showAlertDialog(AlertDialog.Builder alertDialog) {

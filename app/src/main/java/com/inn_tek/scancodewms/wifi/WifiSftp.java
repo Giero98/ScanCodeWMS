@@ -1,18 +1,18 @@
 /**
  * Copyright © 2023 Bartosz Gieras
- *
+
  * This file is part of ScanCodeWMS.
- *
+
  * ScanCodeWMS is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
- *
+
  * ScanCodeWMS is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+
  * You should have received a copy of the GNU General Public License
  * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,7 +21,6 @@ package com.inn_tek.scancodewms.wifi;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.inn_tek.scancodewms.Constants;
@@ -37,7 +36,7 @@ import java.io.File;
 public class WifiSftp {
 
     Context context;
-    String host, username, password, port, remoteDirectoryPath;
+    String address, remoteDirectoryPath, port, username, password;
 
     public WifiSftp(Context context) {
         this.context = context;
@@ -45,12 +44,12 @@ public class WifiSftp {
     }
 
     void assignmentCredentials() {
-        SftpSettingsDialog sftpSettings = new SftpSettingsDialog(context);
-        host = sftpSettings.getHost();
-        username = sftpSettings.getUsername();
-        password = sftpSettings.getPassword();
-        port = sftpSettings.getPort();
-        remoteDirectoryPath = sftpSettings.getRemoteDirectoryPath();
+        ProtocolSettingsDialog protocolSettings = new ProtocolSettingsDialog(context, Constants.sftp);
+        address = protocolSettings.getAddress();
+        remoteDirectoryPath = protocolSettings.getRemoteDirectoryPath();
+        port = protocolSettings.getPort();
+        username = protocolSettings.getUsername();
+        password = protocolSettings.getPassword();
     }
 
     public void openConnection() {
@@ -65,7 +64,7 @@ public class WifiSftp {
             return;
         }
 
-        Session session = getSession(username, host, Integer.parseInt(port));
+        Session session = getSession(username, address, Integer.parseInt(port));
         setSessionPassword(session, password);
         setSessionConfig(session);
 
@@ -82,7 +81,7 @@ public class WifiSftp {
     }
 
     boolean checkIfDataIsEmpty() {
-        return username.equals("") && host.equals("") && password.equals("") && port.equals("") && remoteDirectoryPath.equals("");
+        return address.equals("") && remoteDirectoryPath.equals("") && port.equals("") && username.equals("") && password.equals("");
     }
 
     boolean checkIfPortIsNumber() {
@@ -94,11 +93,11 @@ public class WifiSftp {
         }
     }
 
-    Session getSession(String username, String host, int port) {
+    Session getSession(String username, String address, int port) {
         JSch jsch = new JSch();
         Session session;
         try {
-            session = jsch.getSession(username, host, port);
+            session = jsch.getSession(username, address, port);
         } catch (JSchException e) {
             Toast.makeText(context, context.getString(R.string.failed_create_session), Toast.LENGTH_SHORT).show();
             throw new RuntimeException(e);

@@ -1,18 +1,18 @@
 /**
  * Copyright © 2023 Bartosz Gieras
- *
+
  * This file is part of ScanCodeWMS.
- *
+
  * ScanCodeWMS is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
- *
+
  * ScanCodeWMS is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+
  * You should have received a copy of the GNU General Public License
  * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,19 +40,19 @@ public interface Constants {
 
     String  SFTP_PREFS_NAME = "SFTP_PREFS",
             SMB_PREFS_NAME = "SMB_PREFS",
-            HOST_KEY = "Host (IP Address)",
-            USERNAME_KEY = "Username",
-            PASSWORD_KEY = "Password",
+            ADDRESS_KEY = "Address",
+            REMOTE_DIRECTORY_PATH_KEY = "Remote directory path",
             PORT_KEY = "Port",
-            REMOTE_DIRECTORY_PATH_KEY = "Remote directory path";
+            USERNAME_KEY = "Username",
+            PASSWORD_KEY = "Password";
 
     String  folderName = "ScanCodeWMS",
             sftp = "SFTP",
             smb = "SMB",
             dateFormatToFileName = "yyyyMMddHHmmss";
 
-    String[]    sftpKeys = {HOST_KEY, USERNAME_KEY, PASSWORD_KEY, PORT_KEY, REMOTE_DIRECTORY_PATH_KEY},
-                smbKeys = {HOST_KEY, USERNAME_KEY, PASSWORD_KEY};
+    String[]    sftpKeys = {ADDRESS_KEY, REMOTE_DIRECTORY_PATH_KEY, PORT_KEY, USERNAME_KEY, PASSWORD_KEY},
+                smbKeys = {ADDRESS_KEY, REMOTE_DIRECTORY_PATH_KEY, PORT_KEY, USERNAME_KEY, PASSWORD_KEY};
     List<Integer>   requestBasicCodes = Arrays.asList(REQUEST_CAMERA, REQUEST_WRITE_EXTERNAL_STORAGE, REQUEST_READ_EXTERNAL_STORAGE),
                     requestBtCodes = Arrays.asList(REQUEST_BT_CONNECT, REQUEST_BT_SCAN, REQUEST_BT_ADVERTISE, REQUEST_ACCESS_FINE_LOCATION),
                     requestWifiCodes = Arrays.asList(REQUEST_ACCESS_WIFI_STATE, REQUEST_CHANGE_WIFI_STATE, REQUEST_INTERNET);
