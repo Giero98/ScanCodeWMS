@@ -38,6 +38,8 @@ public interface Constants {
             REQUEST_CHANGE_WIFI_STATE = 9,
             REQUEST_INTERNET = 10;
 
+    int     bufferSize = 512 * 1024; //KB
+
     String  SFTP_PREFS_NAME = "SFTP_PREFS",
             SMB_PREFS_NAME = "SMB_PREFS",
             ADDRESS_KEY = "Address",

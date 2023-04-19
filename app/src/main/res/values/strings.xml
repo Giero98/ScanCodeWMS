@@ -79,6 +79,9 @@
     <string name="failed_connect">Failed to connect</string>
     <string name="failed_open_channel">Failed to open channel</string>
     <string name="channel_connection_failed">Channel connection failed</string>
+    <string name="failed_close_diskShare">Failed to close diskShare</string>
+    <string name="failed_close_session">Failed to close session</string>
+    <string name="failed_close_connection">Failed to close connection</string>
 
     <!-- Sending -->
     <string name="sending_started">Sending started</string>

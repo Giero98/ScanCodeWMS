@@ -1,8 +1,13 @@
 # Scan Code WMS
 
+![alt text][app_logo]\
 
 ## Overview
-*short description*
+
+An application in which it is used to scan codes with a possible fixed initial prefix.
+Automatically saves the codes to the file after the designated number of codes in the file.
+Allows you to send files from the application folder to another device via Bluetooth or
+via Wi-Fi to an SFTP or SMB server.
 
 ### Features
 
@@ -16,6 +21,25 @@
 - Display of the number of scanned codes so far.
 - Sending files to another device via Bluetooth.
 - Uploading files to an SFTP server.
+- Uploading files to SMB server.
+
+### How to send by Wi-Fi
+
+**SFTP**
+
+The credentials should be supplemented with the relevant data:
+- Address: IP address of the server, e.g.: XXX.XX.XXX.XX
+- Remote directory path: directory path on the server, e.g. /name/
+- Port: service port (22 is commonly used)
+- Username and Password: as provided by the server administrator
+
+**SMB**
+
+The credentials should be supplemented with the relevant data:
+- Address: IP address of the server, e.g.: XXX.XXX.X.XXX
+- Remote directory path: name of the directory on the server, e.g. name
+- Port: service port (445 is commonly used)
+- Username and Password: as provided by the server administrator
 
 ### Receiving files via Windows
 
@@ -29,6 +53,7 @@ More information here: [Receive files over Bluetooth for Windows][receiving_file
 - Scanning codes using the library: [Code Scanner][code_scanner] which is licensed MIT License
 - Simulating Android in a test environment using a library: [Robolectric][robolectric] which is license MIT License
 - Connecting to an sshd server and using port forwarding, X11 forwarding, file transfer with the [JSch][jsch] library by [JCraft][jcraft] under the [BSD style license][bsd]
+- SMB client library [SMBJ][smbj] without a specific license
 
 ## Screenshots
 
@@ -42,6 +67,7 @@ Scan Code WMS created as part of an internship for Inn-Tek Sp. z o.o.\
 The ic_inn_tek_logo.png is the logo of Inn-Tek Sp. z o.o.\
 [GNU GPLv3][gnu_gplv3_link] © Bartosz Gieras
 
+[app_logo]: https://github.com/Giero98/ScanCodeWMS/blob/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
 [receiving_files_via_windows]: https://support.microsoft.com/en-us/windows/receive-files-over-bluetooth-d8da2667-e79b-744c-c135-f58af38fc3ba
 [code_scanner]: https://github.com/yuriy-budiyev/code-scanner
 [robolectric]: https://github.com/robolectric/robolectric

@@ -44,7 +44,7 @@ public class WifiSftp {
     }
 
     void assignmentCredentials() {
-        ProtocolSettingsDialog protocolSettings = new ProtocolSettingsDialog(context, Constants.sftp);
+        ProtocolSettings protocolSettings = new ProtocolSettings(context, Constants.sftp);
         address = protocolSettings.getAddress();
         remoteDirectoryPath = protocolSettings.getRemoteDirectoryPath();
         port = protocolSettings.getPort();
@@ -67,21 +67,12 @@ public class WifiSftp {
         Session session = getSession(username, address, Integer.parseInt(port));
         setSessionPassword(session, password);
         setSessionConfig(session);
-
-        new Thread(() -> {
-            connectSession(session);
-
-            ChannelSftp sftpChannel = openSftpChannel(session);
-            connectSftpChannel(sftpChannel);
-
-            sendFiles(sftpChannel);
-
-            closeConnection(sftpChannel, session);
-        }).start();
+        connectAndSendByThread(session);
     }
 
     boolean checkIfDataIsEmpty() {
-        return address.equals("") && remoteDirectoryPath.equals("") && port.equals("") && username.equals("") && password.equals("");
+        return address.equals("") || remoteDirectoryPath.equals("") || port.equals("")
+                || username.equals("") || password.equals("");
     }
 
     boolean checkIfPortIsNumber() {
@@ -113,6 +104,19 @@ public class WifiSftp {
         java.util.Properties config = new java.util.Properties();
         config.put("StrictHostKeyChecking", "no");
         session.setConfig(config);
+    }
+
+    void connectAndSendByThread(Session session) {
+        new Thread(() -> {
+            connectSession(session);
+
+            ChannelSftp sftpChannel = openSftpChannel(session);
+            connectSftpChannel(sftpChannel);
+
+            sendFiles(sftpChannel);
+
+            closeConnection(sftpChannel, session);
+        }).start();
     }
 
     void connectSession(Session session) {
@@ -153,12 +157,11 @@ public class WifiSftp {
         ((Activity) context).runOnUiThread(() ->
                 Toast.makeText(context, context.getString(R.string.sending_started), Toast.LENGTH_SHORT).show());
 
-        assert localFiles != null;
-        for (File localFile : localFiles) {
-            if (localFile.isFile()) {
-                String remoteFilePath = remoteDirectoryPath + localFile.getName();
+        for (File file : localFiles != null ? localFiles : new File[0]) {
+            if (file.isFile()) {
+                String remoteFilePath = remoteDirectoryPath + file.getName();
                 try {
-                    sftpChannel.put(localFile.getAbsolutePath(), remoteFilePath);
+                    sftpChannel.put(file.getAbsolutePath(), remoteFilePath);
                 } catch (SftpException e) {
                     ((Activity) context).runOnUiThread(() ->
                             Toast.makeText(context,context.getString(R.string.filed_send_file), Toast.LENGTH_LONG).show());

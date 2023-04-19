@@ -102,8 +102,8 @@ public class WifiMethodsSelect {
 
     void startWifiProtocol(String protocol) {
         dialog.cancel();
-        ProtocolSettingsDialog protocolSettingsDialog = new ProtocolSettingsDialog(context, protocol);
-        protocolSettingsDialog.checkIfCredentialsSaved();
+        ProtocolSettings protocolSettings = new ProtocolSettings(context, protocol);
+        protocolSettings.checkIfCredentialsSaved();
     }
 
     void showAlertDialog(AlertDialog.Builder alertDialog) {

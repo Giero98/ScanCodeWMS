@@ -32,12 +32,12 @@ import androidx.appcompat.app.AlertDialog;
 import com.inn_tek.scancodewms.Constants;
 import com.inn_tek.scancodewms.R;
 
-public class ProtocolSettingsDialog {
+public class ProtocolSettings {
     SharedPreferences sharedPreferences;
     Context context;
     String protocol;
 
-    public ProtocolSettingsDialog(Context context, String protocol) {
+    public ProtocolSettings(Context context, String protocol) {
         this.context = context;
         this.protocol = protocol;
         if(protocol.equals(Constants.sftp)) {
@@ -225,7 +225,7 @@ public class ProtocolSettingsDialog {
         }
         else if(protocol.equals(Constants.smb)) {
             WifiSmb wifiSmb = new WifiSmb(context);
-            //wifiSmb.openConnectionAndSendFiles();
+            wifiSmb.openConnectionAndSendFiles();
         }
     }
 
