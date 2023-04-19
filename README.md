@@ -76,7 +76,7 @@ The ic_inn_tek_logo.png is the logo of Inn-Tek Sp. z o.o.\
 
 [main_menu]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/main_menu.png
 [languages]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/languages.png
-[scanning_view]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/scaning_view.png
+[scaning_view]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/scaning_view.png
 [methods_to_send]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/methods_to_send.png
 [protocols]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/protocols.png
 [protocol_settings]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/protocol_settings.png
