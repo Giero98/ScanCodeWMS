@@ -61,7 +61,7 @@ The screenshots shown below are licensed [CC-BY-4.0][cc-by-4.0]
 
 ![alt text][main_menu]
 ![alt text][languages]
-![alt text][scanning_view]
+![alt text][scaning_view]
 ![alt text][methods_to_send]
 ![alt text][protocols]
 ![alt text][protocol_settings]
@@ -76,7 +76,7 @@ The ic_inn_tek_logo.png is the logo of Inn-Tek Sp. z o.o.\
 
 [main_menu]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/main_menu.png
 [languages]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/languages.png
-[scanning_view]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/scanning_view.png
+[scanning_view]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/scaning_view.png
 [methods_to_send]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/methods_to_send.png
 [protocols]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/protocols.png
 [protocol_settings]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/protocol_settings.png
