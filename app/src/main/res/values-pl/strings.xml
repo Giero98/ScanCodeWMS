@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="text_about_app">Oto tekst o aplikacji</string>
+    <string name="text_about_app">Aplikacja, która służy do skanowania kodów z ewentualnym ustalonym
+        prefiksem początkowym. Automatycznie zapisuje kody do pliku po określonej liczbie kodów w pliku.
+        Umożliwia wysyłanie plików z folderu aplikacji do innego urządzenia przez Bluetooth lub
+        przez Wi-Fi do serwera SFTP lub SMB.</string>
+
     <string name="file_name">Nazwa pliku</string>
     <string name="number_of_scans">Liczba skanów</string>
     <string name="initial_prefix">Początkowy prefiks</string>
@@ -8,7 +12,11 @@
     <string name="send_file">Wyślij plik</string>
     <string name="back">Wróć</string>
     <string name="about_author">O Autorze</string>
-    <string name="text_about_author">Bartosz Gieras</string>
+
+    <string name="text_about_author">Nazywam się Bartosz Gieras i jestem twórcą tej aplikacji. Z wykształcenia jestem inżynierem matematyki stosowanej oraz magistrem informatyki.
+Podana aplikacja została stworzona dla firmy Inn-Tek Sp. z o.o. w ramach praktyk studenckich.
+Jeśli masz jakieś pytania lub uwagi dotyczące tej aplikacji, poniżej znajduje się mój profil na GitHub:</string>
+
     <string name="change_lang">Zmień język</string>
     <string name="choose_language">Wybierz język</string>
     <string name="polish">Polski</string>

@@ -27,11 +27,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -137,12 +141,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.about_author:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(getString(R.string.about_author))
-                        .setMessage(getString(R.string.text_about_author))
-                        .setPositiveButton("OK", null);
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                createAuthorWindow();
                 break;
             case R.id.change_language:
                 ChangeLanguage changeLanguage = new ChangeLanguage(this,this);
@@ -150,5 +149,22 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressLint("SetTextI18n")
+    void createAuthorWindow() {
+        TextView textView = new TextView(this);
+        textView.setTextSize(Constants.textSize);
+        textView.setGravity(Gravity.CENTER);
+        textView.setText(getString(R.string.text_about_author)+"\n");
+        textView.append(Html.fromHtml(Constants.link_github));
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.about_author))
+                .setView(textView)
+                .setPositiveButton("OK", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

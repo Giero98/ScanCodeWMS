@@ -23,7 +23,10 @@
     <string name="default_number_of_scan" translatable="false">0</string>
     <string name="port" translatable="false">Port</string>
 
-    <string name="text_about_app">Here is the text about the application</string>
+    <string name="text_about_app">An application in which it is used to scan codes with a possible
+        fixed initial prefix. Automatically saves the codes to the file after the designated number
+        of codes in the file. Allows you to send files from the application folder to another device
+        via Bluetooth or via Wi-Fi to an SFTP or SMB server.</string>
 
     <!-- Camera -->
     <string name="no_camera">No camera on this device</string>
@@ -96,7 +99,9 @@
 
     <!-- Author -->
     <string name="about_author">About Author</string>
-    <string name="text_about_author">Bartosz Gieras</string>
+    <string name="text_about_author">My name is Bartosz Gieras and I am the creator of this application. I am an engineer of applied mathematics and a master\'s degree in computer science.
+The given application was created for Inn-Tek Sp. z o. o. during student internships.
+If you have any questions or feedback about this app, below is my GitHub profile:</string>
 
     <!-- Languages -->
     <string name="change_lang">Change Language</string>

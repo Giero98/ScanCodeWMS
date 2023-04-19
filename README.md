@@ -1,6 +1,6 @@
 # Scan Code WMS
 
-![alt text][app_logo]\
+![alt text][app_logo]
 
 ## Overview
 
@@ -29,7 +29,7 @@ via Wi-Fi to an SFTP or SMB server.
 
 The credentials should be supplemented with the relevant data:
 - Address: IP address of the server, e.g.: XXX.XX.XXX.XX
-- Remote directory path: directory path on the server, e.g. /name/
+- Remote directory path: directory path on the server, e.g.: /name/
 - Port: service port (22 is commonly used)
 - Username and Password: as provided by the server administrator
 
@@ -37,7 +37,7 @@ The credentials should be supplemented with the relevant data:
 
 The credentials should be supplemented with the relevant data:
 - Address: IP address of the server, e.g.: XXX.XXX.X.XXX
-- Remote directory path: name of the directory on the server, e.g. name
+- Remote directory path: name of the directory on the server, e.g.: name
 - Port: service port (445 is commonly used)
 - Username and Password: as provided by the server administrator
 
@@ -59,6 +59,13 @@ More information here: [Receive files over Bluetooth for Windows][receiving_file
 
 The screenshots shown below are licensed [CC-BY-4.0][cc-by-4.0]
 
+![alt text][main_menu]
+![alt text][languages]
+![alt text][scanning_view]
+![alt text][methods_to_send]
+![alt text][protocols]
+![alt text][protocol_settings]
+
 ## License
 
 ![alt text][gnu_gplv3_logo]\
@@ -67,14 +74,24 @@ Scan Code WMS created as part of an internship for Inn-Tek Sp. z o.o.\
 The ic_inn_tek_logo.png is the logo of Inn-Tek Sp. z o.o.\
 [GNU GPLv3][gnu_gplv3_link] © Bartosz Gieras
 
+[main_menu]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/main_menu.png
+[languages]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/languages.png
+[scanning_view]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/scanning_view.png
+[methods_to_send]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/methods_to_send.png
+[protocols]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/protocols.png
+[protocol_settings]: https://github.com/Giero98/ScanCodeWMS/blob/main/app_screens/protocol_settings.png
+
+[inn_tek_logo]: https://inn-tek.com/images/headers/raindrops.jpg
 [app_logo]: https://github.com/Giero98/ScanCodeWMS/blob/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
 [receiving_files_via_windows]: https://support.microsoft.com/en-us/windows/receive-files-over-bluetooth-d8da2667-e79b-744c-c135-f58af38fc3ba
+
 [code_scanner]: https://github.com/yuriy-budiyev/code-scanner
 [robolectric]: https://github.com/robolectric/robolectric
 [jsch]: http://www.jcraft.com/jsch/
 [jcraft]: http://www.jcraft.com/c-info.html
 [bsd]: http://www.jcraft.com/jsch/LICENSE.txt
 [smbj]: https://github.com/hierynomus/smbj
+
 [gnu_gplv3_logo]: https://www.gnu.org/graphics/gplv3-127x51.png "GNU GPLv3"
 [gnu_gplv3_link]: https://www.gnu.org/licenses/gpl-3.0.html
-[inn_tek_logo]: https://inn-tek.com/images/headers/raindrops.jpg
+[cc-by-4.0]: https://creativecommons.org/licenses/by/4.0/deed.en

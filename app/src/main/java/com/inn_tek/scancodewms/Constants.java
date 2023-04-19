@@ -40,6 +40,8 @@ public interface Constants {
 
     int     bufferSize = 512 * 1024; //KB
 
+    float   textSize = 18f;
+
     String  SFTP_PREFS_NAME = "SFTP_PREFS",
             SMB_PREFS_NAME = "SMB_PREFS",
             ADDRESS_KEY = "Address",
@@ -51,7 +53,8 @@ public interface Constants {
     String  folderName = "ScanCodeWMS",
             sftp = "SFTP",
             smb = "SMB",
-            dateFormatToFileName = "yyyyMMddHHmmss";
+            dateFormatToFileName = "yyyyMMddHHmmss",
+            link_github = "<a href=\"https://github.com/Giero98\">GitHub</a>";
 
     String[]    sftpKeys = {ADDRESS_KEY, REMOTE_DIRECTORY_PATH_KEY, PORT_KEY, USERNAME_KEY, PASSWORD_KEY},
                 smbKeys = {ADDRESS_KEY, REMOTE_DIRECTORY_PATH_KEY, PORT_KEY, USERNAME_KEY, PASSWORD_KEY};
