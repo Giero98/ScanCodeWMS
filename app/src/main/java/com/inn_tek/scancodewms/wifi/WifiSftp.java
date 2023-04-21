@@ -154,10 +154,17 @@ public class WifiSftp {
     void sendFiles(ChannelSftp sftpChannel) {
         File[] localFiles = Constants.appFolder.listFiles();
 
+        assert localFiles != null;
+        if(folderIsEmpty(localFiles)) {
+            ((Activity) context).runOnUiThread(() ->
+                    Toast.makeText(context, context.getString(R.string.no_file_to_send), Toast.LENGTH_SHORT).show());
+            return;
+        }
+
         ((Activity) context).runOnUiThread(() ->
                 Toast.makeText(context, context.getString(R.string.sending_started), Toast.LENGTH_SHORT).show());
 
-        for (File file : localFiles != null ? localFiles : new File[0]) {
+        for (File file : localFiles) {
             if (file.isFile()) {
                 String remoteFilePath = remoteDirectoryPath + file.getName();
                 try {
@@ -172,6 +179,10 @@ public class WifiSftp {
 
         ((Activity) context).runOnUiThread(() ->
                 Toast.makeText(context, context.getString(R.string.upload_complete), Toast.LENGTH_SHORT).show());
+    }
+
+    boolean folderIsEmpty(File[] files) {
+        return files.length == 0;
     }
 
     void closeConnection(ChannelSftp sftpChannel, Session session) {

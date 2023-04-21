@@ -163,6 +163,9 @@ public class ProtocolSettings {
         });
 
         setNegativeButtonForBuilder(builder,dataExists);
+        if(dataExists) {
+            displayPreviousData(ADDRESS, REMOTE_DIRECTORY_PATH, PORT, USERNAME, PASSWORD);
+        }
         builder.show();
     }
 
@@ -216,6 +219,15 @@ public class ProtocolSettings {
         else {
             builder.setNegativeButton(context.getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
         }
+    }
+
+    void displayPreviousData(EditText ADDRESS, EditText REMOTE_DIRECTORY_PATH, EditText PORT,
+                          EditText USERNAME, EditText PASSWORD) {
+        ADDRESS.setText(getAddress());
+        REMOTE_DIRECTORY_PATH.setText(getRemoteDirectoryPath());
+        PORT.setText(getPort());
+        USERNAME.setText(getUsername());
+        PASSWORD.setText(getPassword());
     }
 
     void useCredentials() {

@@ -69,7 +69,7 @@ The screenshots shown below are licensed [CC-BY-4.0][cc-by-4.0]
 ## License
 
 ![alt text][gnu_gplv3_logo]\
-Scan Code WMS created as part of an internship for Inn-Tek Sp. z o.o.\
+Scan Code WMS created as part of co-working project of Inn-Tek Sp. z o.o.\
 ![alt text][inn_tek_logo]\
 The ic_inn_tek_logo.png is the logo of Inn-Tek Sp. z o.o.\
 [GNU GPLv3][gnu_gplv3_link] © Bartosz Gieras
